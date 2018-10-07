@@ -1,9 +1,20 @@
-
+package src;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 /**
  * (Fill in description and author info here)
  */
 public class Ocean
 {
+	private final Integer [] [] seaweed;
+	private final Fish [] [] fish;
+	private final Integer height;
+	private final Integer width;
+	private final static int DEFAULT_HEIGHT = 200;	
+	private final static int DEFAULT_WIDTH = 200;	
+		
     /**
      * Represent an ocean of the given dimensions.
      * @param height The height of the ocean.
@@ -11,19 +22,28 @@ public class Ocean
      */
     public Ocean(int height, int width)
     {
-        // some code needs to go here
+        this.height = height;
+        this.width = width;
+        seaweed = new Integer[height][width];
+        fish = new Fish[height][width];
+    }
+    public Ocean()
+    {
+        this.height = DEFAULT_HEIGHT;
+        this.width = DEFAULT_WIDTH;
+        seaweed = new Integer[height][width];
+        fish = new Fish[height][width];
     }
     
     /**
      * Return the fish at the given location, if any.
-     * @param row The desired row.
-     * @param col The desired column.
+     * @param height The desired row.
+     * @param width The desired column.
      * @return The fish at the given location, or null if there is none.
      */
-    public Fish getFishAt(int row, int col)
+    public Fish getFishAt(int height, int width)
     {
-        // put code here
-        return null;
+        return fish[height][width];
     }
     
     /**
@@ -31,8 +51,7 @@ public class Ocean
      */
     public int getHeight()
     {
-        // put something here
-        return 200;
+        return height;
     }
     
     /**
@@ -40,7 +59,85 @@ public class Ocean
      */
     public int getWidth()
     {
-        // and something here
-        return 200;
+        return width;
     }
+    /**
+     * Return a shuffled list of locations adjacent to the given one.
+     * The list will not include the location itself.
+     * All locations will lie within the grid.
+     * @param location The location from which to generate adjacencies.
+     * @return A list of locations adjacent to that given.
+     */
+    public List<Location> adjacentLocations(Location location)
+    {
+        assert location != null : "Null location passed to adjacentLocations";
+        // The list of locations to be returned.
+        List<Location> locations = new ArrayList<Location>();
+        if(location != null) {
+            int height = location.getRow();
+            int width = location.getCol();
+            for(int roffset = -1; roffset <= 1; roffset++) {
+                int nextRow = height + roffset;
+                if(nextRow >= 0 && nextRow < height) {
+                    for(int coffset = -1; coffset <= 1; coffset++) {
+                        int nextCol = width + coffset;
+                        // Exclude invalid locations and the original location.
+                        if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                            locations.add(new Location(nextRow, nextCol));
+                        }
+                    }
+                }
+            }
+            
+            // Shuffle the list. Several other methods rely on the list
+            // being in a random order.
+//            Collections.shuffle(locations, rand);
+        }
+        return locations;
+    }
+/**
+         * Empty the field.
+         */
+        public void clear()
+        {
+                for(int row = 0; row < this.height; row++) {
+                        for(int col = 0; col < this.width; col++) {
+                                fish[height][width] = null;
+                        }
+                }
+        }
+        
+        /**
+         * Clear the given location.
+         * @param location The location to clear.
+         */
+        public void clear(Location location)
+        {
+                fish[location.getRow()][location.getCol()] = null;
+        }
+        
+        /**
+         * Place an fish at the given location.
+         * If there is already an fish at the location it will
+         * be lost.
+         * @param fish The fish to be placed.
+         * @param height Row coordinate of the location.
+         * @param width Column coordinate of the location.
+         */
+        public void place(Fish fish, int height, int width)
+        {
+                place(fish, new Location(height, width));
+        }
+        
+        /**
+         * Place an fish at the given location.
+         * If there is already an fish at the location it will
+         * be lost.
+         * @param newFish The fish to be placed.
+         * @param location Where to place the fish.
+         */
+        public void place(Fish newFish, Location location)
+        {
+            fish[location.getRow()][location.getCol()] = newFish;
+        }
 }

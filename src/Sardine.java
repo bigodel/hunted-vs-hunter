@@ -1,3 +1,5 @@
+package src;
+
 
 /**
  * A simple model of a sardine.
