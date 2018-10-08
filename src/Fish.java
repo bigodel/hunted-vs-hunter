@@ -28,30 +28,11 @@ abstract public class Fish
                 setLocation(location);
         }
         abstract public void act(List<Actor> actors);
-        
-        public Location findFood(Location location, Class<?> Food)
-        {
-//            Field ocean = getField();
-                List<Location> adjacent = ocean.adjacentLocations(getLocation());
-                Iterator<Location> it = adjacent.iterator();
-                while(it.hasNext()) {
-                        Location where = it.next();
-                        Fish fish = ocean.getFishAt(where.getRow(),where.getCol());
-                        if(fish.getClass() == Food) {
-                                return where;
-                        }
-                        
-                }
-                return null;
-                
-        }
-        
-        abstract public void eat(Location loc);
-        
         /**
          * Check whether the fish is alive or not.
          * @return true if the fish is still alive.
          */
+        
         public boolean isAlive()
         {
                 return alive;
@@ -89,15 +70,15 @@ abstract public class Fish
                 return ocean;
         }
         /**
-         * 
-         * @return the value of the foodLevel; 
+         *
+         * @return the value of the foodLevel;
          */
         public int getfoodLevel()
         {
                 return foodLevel;
         }
         /**
-         * 
+         *
          * @param foodLevel the new foodlevel;
          */
         public void setfoodLevel(int foodLevel)
@@ -115,13 +96,5 @@ abstract public class Fish
                 }
                 location = newLocation;
                 ocean.place(this, newLocation);
-        }
-        
-        public void incrementHunger()
-        {
-                foodLevel--;
-                if(foodLevel <= 0){
-                        setDead();
-                }
         }
 }

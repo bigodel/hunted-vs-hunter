@@ -9,6 +9,8 @@ import java.util.List;
  *
  * @author cyborg
  */
+
+/////////////////////////// TALVEZ SEJA INUTILIZADA EM BREVE
 public interface Actor {
        /**
         * Executa o comportamento regular do ator.

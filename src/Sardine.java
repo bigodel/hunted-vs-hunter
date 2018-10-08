@@ -9,7 +9,7 @@ import java.util.List;
  * If they spot a predator close by, they panic.
  * 
  */
-public class Sardine extends Fish
+public class Sardine extends ActualFish
 {
     public Sardine(Ocean ocean, Location loc){
             super(ocean,loc);
@@ -39,8 +39,8 @@ public class Sardine extends Fish
      */
     public void eat(Location loc)
     {
-        Seaweed seaweed = getOcean().getFishAt(loc);
-        this.setfoodLevel(seaweed.getNutrients());
+        Seaweed seaweed = (Seaweed) getOcean().getFishAt(loc);
+        this.setfoodLevel(seaweed.getfoodLevel());
         setLocation(loc);
     }
 }
