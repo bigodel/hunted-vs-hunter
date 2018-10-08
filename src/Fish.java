@@ -12,19 +12,24 @@ import java.util.List;
 abstract public class Fish
 {
         private boolean alive;
-        private int FoodLevel;
+        private int foodLevel;
         private Location location;
         private Ocean ocean;
         /**
-         * Constructor for objects of class Fish
+         * Create a new fish at location in field.
+         *
+         * @param ocean The ocean currently occupied.
+         * @param location The location within the ocean.
          */
-        public Fish()
+        public Fish(Ocean ocean, Location location)
         {
+                alive = true;
+                this.ocean = ocean;
+                setLocation(location);
         }
+        abstract public void act(List<Actor> actors);
         
-        abstract public void act(Fish [] [] fish);
-        
-        public Location findFood(Location location, Class<? extends Fish> Food)
+        public Location findFood(Location location, Class<?> Food)
         {
 //            Field ocean = getField();
                 List<Location> adjacent = ocean.adjacentLocations(getLocation());
@@ -40,6 +45,8 @@ abstract public class Fish
                 return null;
                 
         }
+        
+        abstract public void eat(Location loc);
         
         /**
          * Check whether the fish is alive or not.
@@ -77,11 +84,26 @@ abstract public class Fish
          * Return the fish's ocean.
          * @return The fish's ocean.
          */
-        public Field getOcean()
+        public Ocean getOcean()
         {
                 return ocean;
         }
-        
+        /**
+         * 
+         * @return the value of the foodLevel; 
+         */
+        public int getfoodLevel()
+        {
+                return foodLevel;
+        }
+        /**
+         * 
+         * @param foodLevel the new foodlevel;
+         */
+        public void setfoodLevel(int foodLevel)
+        {
+                this.foodLevel = foodLevel;
+        }
         /**
          * Place the fish at the new location in the given ocean.
          * @param newLocation The fish's new location.
@@ -94,5 +116,12 @@ abstract public class Fish
                 location = newLocation;
                 ocean.place(this, newLocation);
         }
+        
+        public void incrementHunger()
+        {
+                foodLevel--;
+                if(foodLevel <= 0){
+                        setDead();
+                }
+        }
 }
-
