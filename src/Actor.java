@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @author what
  */
+
 public interface Actor {
     /**
      * Executa o comportamento regular do ator.
