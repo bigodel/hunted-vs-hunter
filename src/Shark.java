@@ -1,3 +1,5 @@
+package src;
+
 
 /**
  * A simple model of a shark.
@@ -8,5 +10,7 @@
  */
 public class Shark extends Fish
 {
-    
+    public Shark(Ocean ocean, Location location){
+        super(ocean,location);
+    }
 }
