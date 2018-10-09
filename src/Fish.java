@@ -9,7 +9,7 @@ import java.util.List;
  * @author (your name) 
  * @version (a version number or a date)
  */
-abstract public class Fish
+abstract public class Fish extends AquaticLife
 {
         private boolean alive;
         private int foodLevel;
@@ -23,78 +23,57 @@ abstract public class Fish
          */
         public Fish(Ocean ocean, Location location)
         {
-                alive = true;
-                this.ocean = ocean;
-                setLocation(location);
-        }
-        abstract public void act(List<Actor> actors);
-        /**
-         * Check whether the fish is alive or not.
-         * @return true if the fish is still alive.
-         */
-        
-        public boolean isAlive()
-        {
-                return alive;
-        }
-        
-        /**
-         * Indicate that the fish is no longer alive.
-         * It is removed from the ocean.
-         */
-        public void setDead()
-        {
-                alive = false;
-                if(location != null) {
-                        ocean.clear(location);
-                        location = null;
-                        ocean = null;
-                }
-        }
-        
-        /**
-         * Return the fish's location.
-         * @return The fish's location.
-         */
-        public Location getLocation()
-        {
-                return location;
-        }
-        
-        /**
-         * Return the fish's ocean.
-         * @return The fish's ocean.
-         */
-        public Ocean getOcean()
-        {
-                return ocean;
+                super(ocean,location);
+                setInOcean(location);
         }
         /**
-         *
-         * @return the value of the foodLevel;
-         */
-        public int getfoodLevel()
-        {
-                return foodLevel;
-        }
+         * All fish need to eat.
+        */
+        abstract public void eat(Location loc);
         /**
-         *
-         * @param foodLevel the new foodlevel;
+         * Place the seaweed at the new location in the given ocean.
+         * @param newLocation The seaweed's new location.
          */
-        public void setfoodLevel(int foodLevel)
+        public void setInOcean(Location newLocation)
         {
-                this.foodLevel = foodLevel;
-        }
-        /**
-         * Place the fish at the new location in the given ocean.
-         * @param newLocation The fish's new location.
-         */
-        public void setLocation(Location newLocation)
-        {
+                Location location = getLocation();
+                Ocean ocean = getOcean();
                 if(location != null) {
                         ocean.clear(location);
                 }
                 location = newLocation;
                 ocean.place(this, newLocation);
+        }
+        /**
+         * 
+         * @param location Fish's current location.
+         * @param Food  Which class to hunt.
+         * @return returns the location of the found prey 
+         *         or null if none was found.
+         */
+        public Location findFood(Location location, Class<?> Food)
+        {
+                List<Location> adjacent = getOcean().adjacentLocations(getLocation());
+                Iterator<Location> it = adjacent.iterator();
+                while(it.hasNext()) {
+                        Location where = it.next();
+                        Fish fish = getOcean().getFishAt(where.getRow(),where.getCol());
+                        if(fish.getClass() == Food) {
+                                return where;
+                        }
+                        
+                }
+                return null;
+                
+        }
+        /**
+         * All fish starve eventually.
+         */
+        public void incrementHunger()
+        {
+                setfoodLevel(getfoodLevel()-1);
+                if(getfoodLevel() <= 0){
+                        setDead();
+                }
         }
 }

@@ -10,16 +10,15 @@ import java.util.List;
  * @author cyborg
  */
 
-/////////////////////////// TALVEZ SEJA INUTILIZADA EM BREVE
 public interface Actor {
        /**
         * Executa o comportamento regular do ator.
         * @param newActors Uma lista para armazenar os atores criados recentemente.
         */
         void act(List<Actor> newActors);
+        
         /**
-         * 
-         * @return true 
+         * @return true if actor is alive. 
          */
         boolean isAlive();
 }

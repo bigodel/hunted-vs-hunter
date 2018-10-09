@@ -9,13 +9,12 @@ import java.util.List;
  * If they spot a predator close by, they panic.
  * 
  */
-public class Sardine extends ActualFish
+public class Sardine extends Fish implements Actor
 {
     public Sardine(Ocean ocean, Location loc){
             super(ocean,loc);
     }    
    
-    @Override
     public void act(List<Actor> actors)
     {
            incrementHunger();
@@ -37,9 +36,10 @@ public class Sardine extends ActualFish
     /**
      * @param loc Location where the food is
      */
+    @Override
     public void eat(Location loc)
     {
-        Seaweed seaweed = (Seaweed) getOcean().getFishAt(loc);
+        Seaweed seaweed = (Seaweed) getOcean().getSeaweedAt(loc);
         this.setfoodLevel(seaweed.getfoodLevel());
         setLocation(loc);
     }

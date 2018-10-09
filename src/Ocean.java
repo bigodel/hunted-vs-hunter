@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Ocean
 {
-	private final Integer [] [] seaweed;
+	private final Seaweed [] [] seaweed;
 	private final Fish [] [] fish;
 	private final Integer height;
 	private final Integer width;
@@ -24,14 +24,14 @@ public class Ocean
     {
         this.height = height;
         this.width = width;
-        seaweed = new Integer[height][width];
+        seaweed = new Seaweed[height][width];
         fish = new Fish[height][width];
     }
     public Ocean()
     {
         this.height = DEFAULT_HEIGHT;
         this.width = DEFAULT_WIDTH;
-        seaweed = new Integer[height][width];
+        seaweed = new Seaweed[height][width];
         fish = new Fish[height][width];
     }
     
@@ -46,6 +46,15 @@ public class Ocean
         return fish[height][width];
     }
     
+    /**
+     * Return the seaweed at the given location, if any.
+     * @param location The desired location.
+     * @return The seaweed at the given location, or null if there is none.
+     */
+    public Seaweed getSeaweedAt(Location location)
+    {
+        return seaweed[height][width];
+    }
     /**
      * Return the fish at the given location, if any.
      * @param location The desired location.
@@ -112,6 +121,7 @@ public class Ocean
                 for(int row = 0; row < this.height; row++) {
                         for(int col = 0; col < this.width; col++) {
                                 fish[height][width] = null;
+                                seaweed[height][width] = null;
                         }
                 }
         }
@@ -123,6 +133,15 @@ public class Ocean
         public void clear(Location location)
         {
                 fish[location.getRow()][location.getCol()] = null;
+        }
+        
+        /**
+         * Clear the given location.
+         * @param location The location to clear.
+         */
+        public void clearSeaweed(Location location)
+        {
+                seaweed[location.getRow()][location.getCol()] = null;
         }
         
         /**
@@ -148,6 +167,17 @@ public class Ocean
         public void place(Fish newFish, Location location)
         {
             fish[location.getRow()][location.getCol()] = newFish;
+        }
+        /**
+         * Place an Seaweed at the given location.
+         * If there is already an fish at the location it will
+         * be lost.
+         * @param newSeaweed The seaweed to be placed.
+         * @param location Where to place the seaweed.
+         */
+        public void place(Seaweed newSeaweed, Location location)
+        {
+            seaweed[location.getRow()][location.getCol()] = newSeaweed;
         }
      /**
      * Try to find a free location that is adjacent to the
