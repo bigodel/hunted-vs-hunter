@@ -1,69 +1,22 @@
-<<<<<<< HEAD
+package src;
+
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * (Fill in description and author info here)
  */
 public class Ocean
 {
-    /**
-     * Represent an ocean of the given dimensions.
-     * @param height The height of the ocean.
-     * @param width The width of the ocean.
-     */
-    public Ocean(int height, int width)
-    {
-        // some code needs to go here
-    }
-    
-    /**
-     * Return the fish at the given location, if any.
-     * @param row The desired row.
-     * @param col The desired column.
-     * @return The fish at the given location, or null if there is none.
-     */
-    public Fish getFishAt(int row, int col)
-    {
-        // put code here
-        return null;
-    }
-    
-    /**
-     * @return The height of the ocean.
-     */
-    public int getHeight()
-    {
-        // put something here
-        return 200;
-    }
-    
-    /**
-     * @return The width of the ocean.
-     */
-    public int getWidth()
-    {
-        // and something here
-        return 200;
-    }
-}
-||||||| merged common ancestors
-=======
-package src;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-/**
- * (Fill in description and author info here)
- */
-public class Ocean
-{
-	private final Integer [] [] seaweed;
-	private final Fish [] [] fish;
-	private final Integer height;
-	private final Integer width;
-	private final static int DEFAULT_HEIGHT = 200;	
-	private final static int DEFAULT_WIDTH = 200;	
-		
+    private final Integer[][] seaweed;
+    private final Fish[][] fish;
+    private final Integer height;
+    private final Integer width;
+    private final static int DEFAULT_HEIGHT = 200;
+    private final static int DEFAULT_WIDTH = 200;
+
     /**
      * Represent an ocean of the given dimensions.
      * @param height The height of the ocean.
@@ -76,6 +29,7 @@ public class Ocean
         seaweed = new Integer[height][width];
         fish = new Fish[height][width];
     }
+
     public Ocean()
     {
         this.height = DEFAULT_HEIGHT;
@@ -83,7 +37,7 @@ public class Ocean
         seaweed = new Integer[height][width];
         fish = new Fish[height][width];
     }
-    
+
     /**
      * Return the fish at the given location, if any.
      * @param height The desired row.
@@ -94,7 +48,7 @@ public class Ocean
     {
         return fish[height][width];
     }
-    
+
     /**
      * Return the fish at the given location, if any.
      * @param location The desired location.
@@ -111,7 +65,7 @@ public class Ocean
     {
         return height;
     }
-    
+
     /**
      * @return The width of the ocean.
      */
@@ -140,65 +94,66 @@ public class Ocean
                     for(int coffset = -1; coffset <= 1; coffset++) {
                         int nextCol = width + coffset;
                         // Exclude invalid locations and the original location.
-                        if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                        if(nextCol >= 0 && nextCol < width &&
+                           (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
                         }
                     }
                 }
             }
-            
+
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
-//            Collections.shuffle(locations, rand);
+            //            Collections.shuffle(locations, rand);
         }
         return locations;
     }
-/**
-         * Empty the field.
-         */
-        public void clear()
-        {
-                for(int row = 0; row < this.height; row++) {
-                        for(int col = 0; col < this.width; col++) {
-                                fish[height][width] = null;
-                        }
-                }
+    /**
+     * Empty the field.
+     */
+    public void clear()
+    {
+        for(int row = 0; row < this.height; row++) {
+            for(int col = 0; col < this.width; col++) {
+                fish[height][width] = null;
+            }
         }
-        
-        /**
-         * Clear the given location.
-         * @param location The location to clear.
-         */
-        public void clear(Location location)
-        {
-                fish[location.getRow()][location.getCol()] = null;
-        }
-        
-        /**
-         * Place an fish at the given location.
-         * If there is already an fish at the location it will
-         * be lost.
-         * @param fish The fish to be placed.
-         * @param height Row coordinate of the location.
-         * @param width Column coordinate of the location.
-         */
-        public void place(Fish fish, int height, int width)
-        {
-                place(fish, new Location(height, width));
-        }
-        
-        /**
-         * Place an fish at the given location.
-         * If there is already an fish at the location it will
-         * be lost.
-         * @param newFish The fish to be placed.
-         * @param location Where to place the fish.
-         */
-        public void place(Fish newFish, Location location)
-        {
-            fish[location.getRow()][location.getCol()] = newFish;
-        }
-     /**
+    }
+
+    /**
+     * Clear the given location.
+     * @param location The location to clear.
+     */
+    public void clear(Location location)
+    {
+        fish[location.getRow()][location.getCol()] = null;
+    }
+
+    /**
+     * Place an fish at the given location.
+     * If there is already an fish at the location it will
+     * be lost.
+     * @param fish The fish to be placed.
+     * @param height Row coordinate of the location.
+     * @param width Column coordinate of the location.
+     */
+    public void place(Fish fish, int height, int width)
+    {
+        place(fish, new Location(height, width));
+    }
+
+    /**
+     * Place an fish at the given location.
+     * If there is already an fish at the location it will
+     * be lost.
+     * @param newFish The fish to be placed.
+     * @param location Where to place the fish.
+     */
+    public void place(Fish newFish, Location location)
+    {
+        fish[location.getRow()][location.getCol()] = newFish;
+    }
+    /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
      * The returned location will be within the valid bounds
@@ -217,7 +172,7 @@ public class Ocean
             return null;
         }
     }
-     /**
+    /**
      * Get a shuffled list of the free adjacent locations.
      * @param location Get locations adjacent to this.
      * @return A list of free adjacent locations.
@@ -233,8 +188,4 @@ public class Ocean
         }
         return free;
     }
-
-
-
 }
->>>>>>> origin/max

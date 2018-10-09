@@ -1,36 +1,21 @@
-<<<<<<< HEAD
-
-/**
- * A simple model of a sardine.
- * sardines age, move, breed, and die.
- * They eat plankton.
- * They exhibit flocking behaviour - they tend to seek company. 
- * If they spot a predator close by, they panic.
- * 
- */
-public class Sardine extends Fish
-{
-    
-}
-||||||| merged common ancestors
-=======
 package src;
+
 import java.util.List;
 
 /**
  * A simple model of a sardine.
  * sardines age, move, breed, and die.
  * They eat plankton.
- * They exhibit flocking behaviour - they tend to seek company. 
+ * They exhibit flocking behaviour - they tend to seek company.
  * If they spot a predator close by, they panic.
- * 
+ *
  */
 public class Sardine extends Fish
 {
     public Sardine(Ocean ocean, Location loc){
             super(ocean,loc);
-    }    
-   
+    }
+
     @Override
     public void act(List<Actor> actors)
     {
@@ -47,7 +32,7 @@ public class Sardine extends Fish
                    }
                    if(newLocation != null) setLocation(newLocation);
                    else setDead();
-                   
+
            }
     }
     /**
@@ -60,4 +45,3 @@ public class Sardine extends Fish
         setLocation(loc);
     }
 }
->>>>>>> origin/max

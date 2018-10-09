@@ -1,3 +1,4 @@
+package src;
 
 /**
  * A simple model of a shark.
@@ -8,5 +9,5 @@
  */
 public class Shark extends Fish
 {
-    
+
 }
