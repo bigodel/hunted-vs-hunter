@@ -10,12 +10,12 @@ import java.util.Random;
  */
 public class Ocean
 {
-	private final Seaweed [] [] seaweed;
-	private final Fish [] [] fish;
-	private final Integer height;
-	private final Integer width;
-	private final static int DEFAULT_HEIGHT = 200;
-	private final static int DEFAULT_WIDTH = 200;
+    private final Seaweed[][] seaweed;
+    private final Fish[][] fish;
+    private final Integer height;
+    private final Integer width;
+    private final static int DEFAULT_HEIGHT = 200;
+    private final static int DEFAULT_WIDTH = 200;
 
     /**
      * Represent an ocean of the given dimensions.

@@ -59,7 +59,22 @@ public class Simulator
         simView.setColor(Sardine.class, Color.magenta);
         simView.setColor(Tuna.class, Color.yellow);
         simView.setColor(Shark.class, Color.blue);
-        // simView.setColor(Seaweed.class, Color.green);
+        simView.setColor(Seaweed.class, Color.green);
+
+        // Setup the starting point
+        reset();
+    }
+
+    /**
+     * Function to reset the simulation.
+     */
+    public void reset()
+    {
+        step = 0;
+        actors.clear();
+        populate();
+
+        simView.showStatus(step, ocean);
     }
 
     public static void main(String[] args)
@@ -89,7 +104,9 @@ public class Simulator
         simView.showStatus(step, ocean);
     }
 
-    // TODO: fill out the constructors in the loop
+    /**
+     * Populate the ocean with random aquatic life forms.
+     */
     private void populate()
     {
         Random rand = Randomizer.getRandom();
@@ -98,22 +115,22 @@ public class Simulator
             for (int col = 0; col < ocean.getWidth(); ++col) {
                 if (rand.nextDouble() <= SEAWEED_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    // Seaweed weed = new Seaweed();
-                    // actors.add(weed);
+                    Seaweed weed = new Seaweed(ocean, loc);
+                    actors.add(weed);
                 }
                 else if (rand.nextDouble() <= SARDINE_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    Sardine sardine = new Sardine();
+                    Sardine sardine = new Sardine(ocean, loc);
                     actors.add(sardine);
                 }
                 else if (rand.nextDouble() <= TUNA_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    Tuna tuna = new Tuna();
+                    Tuna tuna = new Tuna(ocean, loc);
                     actors.add(tuna);
                 }
                 else if (rand.nextDouble() <= SHARK_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    Shark shark = new Shark();
+                    Shark shark = new Shark(ocean, loc);
                     actors.add(shark);
                 }
             }
@@ -122,7 +139,9 @@ public class Simulator
 
     public void run(int steps)
     {
-        // put the simulation main loop here
+        for (int i = 0; i < steps; ++i) {
+            simulateOneStep();
+        }
 
         simView.showStatus(0, ocean);
     }
