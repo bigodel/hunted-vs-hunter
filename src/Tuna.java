@@ -1,3 +1,5 @@
+package src;
+
 
 /**
  * A simple model of a tuna.
@@ -8,5 +10,7 @@
  */
 public class Tuna extends Fish
 {
-    
+    public Tuna(Ocean ocean, Location location){
+        super(ocean,location);
+    }
 }

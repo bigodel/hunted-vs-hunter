@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package src;
-
+import java.util.Random;
 /**
  *
  * @author cyborg
@@ -15,6 +15,8 @@ abstract public class AquaticLife {
         private int foodLevel;
         private Location location;
         private Ocean ocean;
+        private static final Random rand = Randomizer.getRandom();
+        
         public AquaticLife(Ocean ocean, Location location) {
                 alive = true;
                 this.ocean = ocean;
@@ -77,5 +79,8 @@ abstract public class AquaticLife {
         public void setfoodLevel(int foodLevel)
         {
                 this.foodLevel = foodLevel;
+        }
+        public Random getRand(){
+                return rand;
         }
 }
