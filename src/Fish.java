@@ -6,10 +6,10 @@ import java.util.Random;
 
 /**
  * Write a description of class Fish here.
- * 
+ *
  * NOTE: This should serve as a superclass to all specific tyes of fish
- * 
- * @author (your name) 
+ *
+ * @author (your name)
  * @version (a version number or a date)
  */
 abstract public class Fish extends AquaticLife
@@ -62,7 +62,7 @@ abstract public class Fish extends AquaticLife
             if(fish.getClass() == Food) {
                 return where;
             }
-            
+
         }
         return null;
     }

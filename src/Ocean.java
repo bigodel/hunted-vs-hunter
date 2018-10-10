@@ -1,20 +1,22 @@
 package src;
+
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 /**
  * (Fill in description and author info here)
  */
 public class Ocean
 {
-	private final Seaweed [] [] seaweed;
-	private final Fish [] [] fish;
-	private final Integer height;
-	private final Integer width;
-	private final static int DEFAULT_HEIGHT = 200;	
-	private final static int DEFAULT_WIDTH = 200;	
-		
+    private final Seaweed[][] seaweed;
+    private final Fish[][] fish;
+    private final Integer height;
+    private final Integer width;
+    private final static int DEFAULT_HEIGHT = 200;
+    private final static int DEFAULT_WIDTH = 200;
+
     /**
      * Represent an ocean of the given dimensions.
      * @param height The height of the ocean.
@@ -27,6 +29,7 @@ public class Ocean
         seaweed = new Seaweed[height][width];
         fish = new Fish[height][width];
     }
+
     public Ocean()
     {
         this.height = DEFAULT_HEIGHT;
@@ -34,7 +37,7 @@ public class Ocean
         seaweed = new Seaweed[height][width];
         fish = new Fish[height][width];
     }
-    
+
     /**
      * Return the fish at the given location, if any.
      * @param height The desired row.
@@ -45,7 +48,7 @@ public class Ocean
     {
         return fish[height][width];
     }
-    
+
     /**
      * Return the seaweed at the given location, if any.
      * @param location The desired location.
@@ -71,7 +74,7 @@ public class Ocean
     {
         return height;
     }
-    
+
     /**
      * @return The width of the ocean.
      */
@@ -100,16 +103,17 @@ public class Ocean
                     for(int coffset = -1; coffset <= 1; coffset++) {
                         int nextCol = width + coffset;
                         // Exclude invalid locations and the original location.
-                        if(nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                        if(nextCol >= 0 && nextCol < width &&
+                           (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
                         }
                     }
                 }
             }
-            
+
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
-//            Collections.shuffle(locations, rand);
+            //            Collections.shuffle(locations, rand);
         }
         return locations;
     }
@@ -125,7 +129,7 @@ public class Ocean
                         }
                 }
         }
-        
+
         /**
          * Clear the given location.
          * @param location The location to clear.
@@ -134,7 +138,7 @@ public class Ocean
         {
                 fish[location.getRow()][location.getCol()] = null;
         }
-        
+
         /**
          * Clear the given location.
          * @param location The location to clear.
@@ -143,7 +147,7 @@ public class Ocean
         {
                 seaweed[location.getRow()][location.getCol()] = null;
         }
-        
+
         /**
          * Place an fish at the given location.
          * If there is already an fish at the location it will
@@ -156,7 +160,7 @@ public class Ocean
         {
                 place(fish, new Location(height, width));
         }
-        
+
         /**
          * Place an fish at the given location.
          * If there is already an fish at the location it will
@@ -198,7 +202,7 @@ public class Ocean
             return null;
         }
     }
-     /**
+    /**
      * Get a shuffled list of the free adjacent locations.
      * @param location Get locations adjacent to this.
      * @return A list of free adjacent locations.
@@ -214,7 +218,4 @@ public class Ocean
         }
         return free;
     }
-
-
-
 }

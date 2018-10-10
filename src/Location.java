@@ -7,7 +7,7 @@ package src;
 
 /**
  * Represent a location in a rectangular grid.
- * 
+ *
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
@@ -27,7 +27,7 @@ public class Location
         this.row = row;
         this.col = col;
     }
-    
+
     /**
      * Implement content equality.
      */
@@ -41,7 +41,7 @@ public class Location
             return false;
         }
     }
-    
+
     /**
      * Return a string of the form row,column
      * @return A string representation of the location.
@@ -50,7 +50,7 @@ public class Location
     {
         return row + "," + col;
     }
-    
+
     /**
      * Use the top 16 bits for the row value and the bottom for
      * the column. Except for very big grids, this should give a
@@ -61,7 +61,7 @@ public class Location
     {
         return (row << 16) + col;
     }
-    
+
     /**
      * @return The row.
      */
@@ -69,7 +69,7 @@ public class Location
     {
         return row;
     }
-    
+
     /**
      * @return The column.
      */

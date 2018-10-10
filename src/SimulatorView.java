@@ -6,19 +6,19 @@ import java.util.HashMap;
 
 /**
  * A graphical view of the simulation grid.
- * The view displays a colored rectangle for each location 
+ * The view displays a colored rectangle for each location
  * representing its contents. It uses a default background color.
  * Colors for each type of species can be defined using the
  * setColor method.
- * 
+ *
  * @author David J. Barnes and Michael Kolling
  * @version 2003.12.22
  */
 public class SimulatorView extends JFrame
 {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	// Colors used for empty locations.
+    // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
 
     // Color used for objects that have no defined color.
@@ -28,7 +28,7 @@ public class SimulatorView extends JFrame
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
     private OceanView oceanView;
-    
+
     // A map for storing colors for participants in the simulation
     private HashMap<Class<? extends Fish>,Color> colors;
     // A statistics object computing and storing simulation information
@@ -47,9 +47,9 @@ public class SimulatorView extends JFrame
         setTitle("SimOcean");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
-        
+
         setLocation(100, 50);
-        
+
         oceanView = new OceanView(height, width);
 
         Container contents = getContentPane();
@@ -59,7 +59,7 @@ public class SimulatorView extends JFrame
         pack();
         setVisible(true);
     }
-    
+
     /**
      * Define a color to be used for a given class of fish.
      */
@@ -97,7 +97,7 @@ public class SimulatorView extends JFrame
 
         stats.reset();
         oceanView.preparePaint();
-            
+
         for(int row = 0; row < ocean.getHeight(); row++) {
             for(int col = 0; col < ocean.getWidth(); col++) {
                 Fish fish = ocean.getFishAt(row, col);
@@ -124,13 +124,13 @@ public class SimulatorView extends JFrame
     {
         return stats.isViable(ocean);
     }
-    
+
     /**
-     * Provide a graphical view of a rectangular ocean. This is 
+     * Provide a graphical view of a rectangular ocean. This is
      * a nested class (a class defined inside a class) which
      * defines a custom component for the user interface. This
      * component displays the ocean.
-     * This is rather advanced GUI stuff - you can ignore this 
+     * This is rather advanced GUI stuff - you can ignore this
      * for your project if you like.
      */
     private class OceanView extends JPanel
@@ -163,7 +163,7 @@ public class SimulatorView extends JFrame
             return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
                                  gridHeight * GRID_VIEW_SCALING_FACTOR);
         }
-        
+
         /**
          * Prepare for a new round of painting. Since the component
          * may be resized, compute the scaling factor again.
@@ -185,7 +185,7 @@ public class SimulatorView extends JFrame
                 }
             }
         }
-        
+
         /**
          * Paint on grid location on this ocean in a given color.
          */

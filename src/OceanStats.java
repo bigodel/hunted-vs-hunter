@@ -3,10 +3,10 @@ package src;
 import java.util.HashMap;
 
 /**
- * This class collects and provides some statistical data on the state 
- * of a ocean. It is flexible: it will create and maintain a counter 
+ * This class collects and provides some statistical data on the state
+ * of a ocean. It is flexible: it will create and maintain a counter
  * for any class of object that is found within the ocean.
- * 
+ *
  * @author David J. Barnes and Michael Kolling
  * @author Richard Jones
  * @version 2006.9.20
@@ -56,9 +56,9 @@ public class OceanStats
         }
         return buffer.toString();
     }
-    
+
     /**
-     * Invalidate the current set of statistics; reset all 
+     * Invalidate the current set of statistics; reset all
      * counts to zero.
      */
     public void reset()
@@ -112,7 +112,7 @@ public class OceanStats
         }
         return nonZero > 1;
     }
-    
+
     /**
      * Generate counts of the number each different kind of fish
      * in the ocean.

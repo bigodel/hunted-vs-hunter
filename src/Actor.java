@@ -4,21 +4,22 @@
  * and open the template in the editor.
  */
 package src;
+
 import java.util.List;
+
 /**
- *
- * @author cyborg
+ * @author what
  */
 
 public interface Actor {
-       /**
-        * Executa o comportamento regular do ator.
-        * @param newActors Uma lista para armazenar os atores criados recentemente.
-        */
-        void act(List<Actor> newActors);
-        
-        /**
-         * @return true if actor is alive. 
-         */
-        boolean isAlive();
+    /**
+     * Executa o comportamento regular do ator.
+     * @param newActors Uma lista para armazenar os atores criados recentemente.
+     */
+    void act(List<Actor> newActors);
+    /**
+     *
+     * @return true
+     */
+    boolean isAlive();
 }

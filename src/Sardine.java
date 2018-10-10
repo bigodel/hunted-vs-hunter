@@ -1,4 +1,5 @@
 package src;
+
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
@@ -6,9 +7,9 @@ import java.util.Random;
  * A simple model of a sardine.
  * sardines age, move, breed, and die.
  * They eat plankton.
- * They exhibit flocking behaviour - they tend to seek company. 
+ * They exhibit flocking behaviour - they tend to seek company.
  * If they spot a predator close by, they panic.
- * 
+ *
  */
 public class Sardine extends Fish implements Actor
 {
@@ -16,9 +17,9 @@ public class Sardine extends Fish implements Actor
     private final int MAX_BREED_PER_ROUND = 3;
     public Sardine(Ocean ocean, Location loc){
         super(ocean,loc);
-        
+
     }
-    
+
     public void act(List<Actor> actors)
     {
         incrementHunger();
@@ -34,7 +35,7 @@ public class Sardine extends Fish implements Actor
             }
             if(newLocation != null) setLocation(newLocation);
             else setDead();
-            
+
         }
     }
     /**
@@ -82,8 +83,8 @@ public class Sardine extends Fish implements Actor
             newSardine.add(new Sardine(ocean,loc));
         }
     }
-    
-    
+
+
     /**
      * Generate a number representing the number of births,
      * if it can breed.
@@ -98,7 +99,7 @@ public class Sardine extends Fish implements Actor
         }
         return births;
     }
-    
+
     /**
      * A rabbit can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.

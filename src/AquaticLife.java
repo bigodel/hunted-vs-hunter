@@ -10,16 +10,29 @@ import java.util.Random;
  * @author cyborg
  */
 abstract public class AquaticLife {
-        
-        private boolean alive;
-        private int foodLevel;
-        private Location location;
-        private Ocean ocean;
-        private static final Random rand = Randomizer.getRandom();
-        
-        public AquaticLife(Ocean ocean, Location location) {
-                alive = true;
-                this.ocean = ocean;
+
+    private boolean alive;
+    private int foodLevel;
+    private Location location;
+    private Ocean ocean;
+    public AquaticLife(Ocean ocean, Location location) {
+        alive = true;
+        this.ocean = ocean;
+    }
+    public boolean isAlive(){
+        return alive;
+    }
+    /**
+     * Indicate that the lifeform is no longer alive.
+     * It is removed from the ocean.
+     */
+    public void setDead()
+    {
+        alive = false;
+        if(location != null) {
+            ocean.clear(location);
+            location = null;
+            ocean = null;
         }
         public boolean isAlive(){
                 return alive;
@@ -37,7 +50,7 @@ abstract public class AquaticLife {
                         ocean = null;
                 }
         }
-        
+
         /**
          * Return the lifeform's location.
          * @return The lifeform's location.
@@ -46,7 +59,7 @@ abstract public class AquaticLife {
         {
                 return location;
         }
-        
+
         /**
          * Return the lifeform's location.
          * @param newLocation the lifeform's new location.

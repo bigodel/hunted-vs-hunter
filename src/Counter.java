@@ -1,12 +1,11 @@
 package src;
 
-
 /**
  * Provide a counter for a participant in the simulation.
  * This includes an identifying string and a count of how
- * many participants of this type currently exist within 
+ * many participants of this type currently exist within
  * the simulation.
- * 
+ *
  * @author David J. Barnes and Michael Kolling
  * @version 2003.10.28
  */
@@ -26,7 +25,7 @@ public class Counter
         this.name = name;
         count = 0;
     }
-    
+
     /**
      * @return The short description of this type.
      */
@@ -50,7 +49,7 @@ public class Counter
     {
         count++;
     }
-    
+
     /**
      * Reset the current count to zero.
      */
