@@ -104,9 +104,9 @@ public class Ocean
                         int nextCol = width + coffset;
                         // Exclude invalid locations and the original location.
                         if(nextCol >= 0 && nextCol < width &&
-                           (roffset != 0 || coffset != 0)) {
+                                (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
-                        }
+                                }
                     }
                 }
             }
@@ -117,73 +117,74 @@ public class Ocean
         }
         return locations;
     }
-/**
-         * Empty the field.
-         */
-        public void clear()
-        {
-                for(int row = 0; row < this.height; row++) {
-                        for(int col = 0; col < this.width; col++) {
-                                fish[height][width] = null;
-                                seaweed[height][width] = null;
-                        }
-                }
-        }
 
-        /**
-         * Clear the given location.
-         * @param location The location to clear.
-         */
-        public void clear(Location location)
-        {
-                fish[location.getRow()][location.getCol()] = null;
+    /**
+     * Empty the field.
+     */
+    public void clear()
+    {
+        for(int row = 0; row < this.height; row++) {
+            for(int col = 0; col < this.width; col++) {
+                fish[row][col] = null;
+                seaweed[row][col] = null;
+            }
         }
+    }
 
-        /**
-         * Clear the given location.
-         * @param location The location to clear.
-         */
-        public void clearSeaweed(Location location)
-        {
-                seaweed[location.getRow()][location.getCol()] = null;
-        }
+    /**
+     * Clear the given location.
+     * @param location The location to clear.
+     */
+    public void clear(Location location)
+    {
+        fish[location.getRow()][location.getCol()] = null;
+    }
 
-        /**
-         * Place an fish at the given location.
-         * If there is already an fish at the location it will
-         * be lost.
-         * @param fish The fish to be placed.
-         * @param height Row coordinate of the location.
-         * @param width Column coordinate of the location.
-         */
-        public void place(Fish fish, int height, int width)
-        {
-                place(fish, new Location(height, width));
-        }
+    /**
+     * Clear the given location.
+     * @param location The location to clear.
+     */
+    public void clearSeaweed(Location location)
+    {
+        seaweed[location.getRow()][location.getCol()] = null;
+    }
 
-        /**
-         * Place an fish at the given location.
-         * If there is already an fish at the location it will
-         * be lost.
-         * @param newFish The fish to be placed.
-         * @param location Where to place the fish.
-         */
-        public void place(Fish newFish, Location location)
-        {
-            fish[location.getRow()][location.getCol()] = newFish;
-        }
-        /**
-         * Place an Seaweed at the given location.
-         * If there is already an fish at the location it will
-         * be lost.
-         * @param newSeaweed The seaweed to be placed.
-         * @param location Where to place the seaweed.
-         */
-        public void place(Seaweed newSeaweed, Location location)
-        {
-            seaweed[location.getRow()][location.getCol()] = newSeaweed;
-        }
-     /**
+    /**
+     * Place an fish at the given location.
+     * If there is already an fish at the location it will
+     * be lost.
+     * @param fish The fish to be placed.
+     * @param height Row coordinate of the location.
+     * @param width Column coordinate of the location.
+     */
+    public void place(Fish fish, int height, int width)
+    {
+        place(fish, new Location(height, width));
+    }
+
+    /**
+     * Place an fish at the given location.
+     * If there is already an fish at the location it will
+     * be lost.
+     * @param newFish The fish to be placed.
+     * @param location Where to place the fish.
+     */
+    public void place(Fish newFish, Location location)
+    {
+        fish[location.getRow()][location.getCol()] = newFish;
+    }
+    /**
+     * Place an Seaweed at the given location.
+     * If there is already an fish at the location it will
+     * be lost.
+     * @param newSeaweed The seaweed to be placed.
+     * @param location Where to place the seaweed.
+     */
+    public void place(Seaweed newSeaweed, Location location)
+    {
+        seaweed[location.getRow()][location.getCol()] = newSeaweed;
+    }
+    /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
      * The returned location will be within the valid bounds

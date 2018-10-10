@@ -59,7 +59,7 @@ public class Simulator
         simView.setColor(Sardine.class, Color.magenta);
         simView.setColor(Tuna.class, Color.yellow);
         simView.setColor(Shark.class, Color.blue);
-        simView.setColor(Seaweed.class, Color.green);
+        // simView.setColor(Seaweed.class, Color.green);
 
         // Setup the starting point
         reset();
@@ -75,12 +75,6 @@ public class Simulator
         populate();
 
         simView.showStatus(step, ocean);
-    }
-
-    public static void main(String[] args)
-    {
-        Simulator sim = new Simulator(50, 60);
-        sim.run(1000);
     }
 
     public void simulateOneStep()
@@ -125,13 +119,13 @@ public class Simulator
                 }
                 else if (rand.nextDouble() <= TUNA_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    Tuna tuna = new Tuna(ocean, loc);
-                    actors.add(tuna);
+                    // Tuna tuna = new Tuna(ocean, loc);
+                    // actors.add(tuna);
                 }
                 else if (rand.nextDouble() <= SHARK_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    Shark shark = new Shark(ocean, loc);
-                    actors.add(shark);
+                    // Shark shark = new Shark(ocean, loc);
+                    // actors.add(shark);
                 }
             }
         }
@@ -144,5 +138,11 @@ public class Simulator
         }
 
         simView.showStatus(0, ocean);
+    }
+
+    public static void main(String[] args)
+    {
+        Simulator sim = new Simulator(50, 60);
+        sim.run(1000);
     }
 }
