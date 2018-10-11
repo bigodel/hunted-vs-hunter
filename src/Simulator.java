@@ -119,13 +119,13 @@ public class Simulator
                 }
                 else if (rand.nextDouble() <= TUNA_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    // Tuna tuna = new Tuna(ocean, loc);
-                    // actors.add(tuna);
+                    Tuna tuna = new Tuna(ocean, loc);
+                    actors.add(tuna);
                 }
                 else if (rand.nextDouble() <= SHARK_PROBABILITY) {
                     Location loc = new Location(row, col);
-                    // Shark shark = new Shark(ocean, loc);
-                    // actors.add(shark);
+                    Shark shark = new Shark(ocean, loc);
+                    actors.add(shark);
                 }
             }
         }
@@ -133,11 +133,11 @@ public class Simulator
 
     public void run(int steps)
     {
+        simView.showStatus(0, ocean);
         for (int i = 0; i < steps; ++i) {
             simulateOneStep();
         }
 
-        simView.showStatus(0, ocean);
     }
 
     public static void main(String[] args)

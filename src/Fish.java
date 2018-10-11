@@ -15,7 +15,6 @@ import java.util.Random;
 abstract public class Fish extends AquaticLife
 {
     private boolean alive;
-    private int foodLevel;
     private Location location;
     private Ocean ocean;
 
