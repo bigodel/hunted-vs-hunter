@@ -75,7 +75,7 @@ public class Tuna extends Fish implements Actor
         if (isAlive()) {
             giveBirth(tunas);
             Location loc = getLocation();
-            Location newLocation = null;
+            Location newLocation = findFood(loc, Sardine.class);
 
             if (newLocation != null)
                 eat(newLocation);

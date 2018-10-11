@@ -18,6 +18,7 @@ abstract public class AquaticLife
     {
         alive = true;
         this.ocean = ocean;
+        foodLevel = 0;
     }
 
     /**
@@ -86,6 +87,9 @@ abstract public class AquaticLife
      */
     public void setfoodLevel(int foodLevel)
     {
+        if(foodLevel >= 10){
+            this.foodLevel = 10;
+        }
         this.foodLevel = foodLevel;
     }
 
