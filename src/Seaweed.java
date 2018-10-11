@@ -35,7 +35,7 @@ public class Seaweed extends AquaticLife implements Actor
 
     public void feed()
     {
-        setfoodLevel(getfoodLevel()+1);
+        setfoodLevel(getfoodLevel() + 5);
     }
 
     /**

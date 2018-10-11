@@ -71,7 +71,6 @@ public class Tuna extends Fish implements Actor
     public void act(List<Actor> tunas)
     {
         incrementHunger();
-
         if (isAlive()) {
             giveBirth(tunas);
             Location loc = getLocation();

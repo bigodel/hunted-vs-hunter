@@ -18,7 +18,8 @@ abstract public class AquaticLife
     {
         alive = true;
         this.ocean = ocean;
-        foodLevel = 0;
+        this.location = location;
+        foodLevel = 5;
     }
 
     /**

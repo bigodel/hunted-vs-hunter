@@ -54,12 +54,12 @@ public class Simulator
 
         // define in which color each fish should be shown
         // default fish color
-        simView.setColor(Fish.class, Color.red);
+        //simView.setColor(Fish.class, Color.red);
         // color for each type of fish
         simView.setColor(Sardine.class, Color.magenta);
         simView.setColor(Tuna.class, Color.yellow);
         simView.setColor(Shark.class, Color.blue);
-        // simView.setColor(Seaweed.class, Color.green);
+        //simView.setColor(Seaweed.class, Color.green);
 
         // Setup the starting point
         reset();
@@ -74,7 +74,7 @@ public class Simulator
         actors.clear();
         populate();
 
-        simView.showStatus(step, ocean);
+       // simView.showStatus(step, ocean);
     }
 
     public void simulateOneStep()
@@ -134,7 +134,7 @@ public class Simulator
     public void run(int steps)
     {
         simView.showStatus(0, ocean);
-        for (int i = 0; i < steps; ++i) {
+        for (int i = 1; i <= steps && simView.isViable(ocean); ++i) {
             simulateOneStep();
         }
 

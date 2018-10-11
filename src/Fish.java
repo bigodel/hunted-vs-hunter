@@ -65,7 +65,7 @@ abstract public class Fish extends AquaticLife
             Location where = it.next();
             Fish fish = getOcean().getFishAt(where.getRow(),where.getCol());
 
-            if(fish.getClass() == Food) {
+            if(fish != null && fish.getClass() == Food) {
                 return where;
             }
         }
