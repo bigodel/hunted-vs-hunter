@@ -3,6 +3,7 @@ package src;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
+
 /**
  * A simple model of a sardine.
  * sardines age, move, breed, and die.
@@ -15,38 +16,45 @@ public class Sardine extends Fish implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.25;
     private final int MAX_BREED_PER_ROUND = 3;
-    public Sardine(Ocean ocean, Location loc){
-        super(ocean,loc);
 
+    public Sardine(Ocean ocean, Location location)
+    {
+        super(ocean, location);
     }
 
     public void act(List<Actor> actors)
     {
         incrementHunger();
-        if(isAlive()){
+
+        if (isAlive()) {
             giveBirth(actors);
             Location loc = getLocation();
             Location newLocation = findFood(loc);
-            if(newLocation != null){
-                eat(newLocation);
-            }
-            else {
-                newLocation = getOcean().freeAdjacentLocation(loc);
-            }
-            if(newLocation != null) setLocation(newLocation);
-            else setDead();
 
+            if (newLocation != null)
+                eat(newLocation);
+            else
+                newLocation = getOcean().freeAdjacentLocation(loc);
+
+            if (newLocation != null)
+                setLocation(newLocation);
+            else
+                setDead();
         }
     }
+
     /**
-     * @param loc Location where the food is
+     * Eat food at the location.
+     *
+     * @param location Location where the food is
      */
-    public void eat(Location loc)
+    public void eat(Location location)
     {
-        Seaweed seaweed = (Seaweed) getOcean().getSeaweedAt(loc);
+        Seaweed seaweed = (Seaweed) getOcean().getSeaweedAt(location);
         this.setfoodLevel(seaweed.getfoodLevel());
-        setLocation(loc);
+        setLocation(location);
     }
+
     private Location findFood(Location location)
     {
         Ocean ocean = getOcean();
@@ -66,21 +74,24 @@ public class Sardine extends Fish implements Actor
         }
         return null;
     }
+
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this sardine is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newRabbits A list to add newly born rabbits to.
+     *
+     * @param newSardine A list to add newly born rabbits to.
      */
-    private void giveBirth(List<Actor> newSardine)
+    protected void giveBirth(List<Actor> newSardine)
     {
-        // New rabbits are born into adjacent locations.
+        // New sardines are born into adjacent locations.
         // Get a list of adjacent free locations.
         Ocean ocean = getOcean();
         List<Location> free = ocean.getFreeAdjacentLocations(getLocation());
         int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
+
+        for (int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            newSardine.add(new Sardine(ocean,loc));
+            newSardine.add(new Sardine(ocean, loc));
         }
     }
 
@@ -94,9 +105,11 @@ public class Sardine extends Fish implements Actor
     {
         int births = 0;
         Random rand = getRand();
-        if(/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+
+        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
+
         return births;
     }
 

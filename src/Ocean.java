@@ -6,19 +6,30 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * (Fill in description and author info here)
+ * @author Max William S. Filgueira, João Pedro de A. Paula
+ * @version 2018-10-10
  */
 public class Ocean
 {
+    // Default values for the height and width of the ocean
+    private final static int DEFAULT_HEIGHT = 200;
+    private final static int DEFAULT_WIDTH = 200;
     private final Seaweed[][] seaweed;
     private final Fish[][] fish;
     private final Integer height;
     private final Integer width;
-    private final static int DEFAULT_HEIGHT = 200;
-    private final static int DEFAULT_WIDTH = 200;
+
+    /**
+     * Default constructor for ocean with default values.
+     */
+    public Ocean()
+    {
+        this(DEFAULT_HEIGHT, DEFAULT_WIDTH);
+    }
 
     /**
      * Represent an ocean of the given dimensions.
+     *
      * @param height The height of the ocean.
      * @param width The width of the ocean.
      */
@@ -30,16 +41,9 @@ public class Ocean
         fish = new Fish[height][width];
     }
 
-    public Ocean()
-    {
-        this.height = DEFAULT_HEIGHT;
-        this.width = DEFAULT_WIDTH;
-        seaweed = new Seaweed[height][width];
-        fish = new Fish[height][width];
-    }
-
     /**
      * Return the fish at the given location, if any.
+     *
      * @param height The desired row.
      * @param width The desired column.
      * @return The fish at the given location, or null if there is none.
@@ -51,13 +55,15 @@ public class Ocean
 
     /**
      * Return the seaweed at the given location, if any.
+     *
      * @param location The desired location.
      * @return The seaweed at the given location, or null if there is none.
      */
     public Seaweed getSeaweedAt(Location location)
     {
-        return seaweed[height][width];
+        return seaweed[location.getRow()][location.getCol()];
     }
+
     /**
      * Return the fish at the given location, if any.
      * @param location The desired location.
@@ -67,6 +73,7 @@ public class Ocean
     {
         return fish[location.getRow()][location.getCol()];
     }
+
     /**
      * @return The height of the ocean.
      */
@@ -82,6 +89,7 @@ public class Ocean
     {
         return width;
     }
+
     /**
      * Return a shuffled list of locations adjacent to the given one.
      * The list will not include the location itself.
@@ -104,9 +112,9 @@ public class Ocean
                         int nextCol = width + coffset;
                         // Exclude invalid locations and the original location.
                         if(nextCol >= 0 && nextCol < width &&
-                                (roffset != 0 || coffset != 0)) {
+                           (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
-                                }
+                        }
                     }
                 }
             }

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package src;
 
 import java.util.Random;
@@ -12,15 +6,16 @@ import java.util.Random;
  *
  * @author cyborg
  */
-abstract public class AquaticLife {
-
+abstract public class AquaticLife
+{
     private boolean alive;
     private int foodLevel;
     private Location location;
     private Ocean ocean;
     private static final Random rand = Randomizer.getRandom();
 
-    public AquaticLife(Ocean ocean, Location location) {
+    public AquaticLife(Ocean ocean, Location location)
+    {
         alive = true;
         this.ocean = ocean;
     }
@@ -28,7 +23,8 @@ abstract public class AquaticLife {
     /**
      * @return true if the life form is alive.
      */
-    public boolean isAlive(){
+    public boolean isAlive()
+    {
         return alive;
     }
 
@@ -39,6 +35,7 @@ abstract public class AquaticLife {
     public void setDead()
     {
         alive = false;
+
         if(location != null) {
             ocean.clear(location);
             location = null;
@@ -93,9 +90,10 @@ abstract public class AquaticLife {
     }
 
     /**
-     * @return 
+     * @return
      */
-    public Random getRand(){
+    public Random getRand()
+    {
         return rand;
     }
 }

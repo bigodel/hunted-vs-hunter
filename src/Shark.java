@@ -1,6 +1,5 @@
 package src;
 
-
 /**
  * A simple model of a shark.
  * Sharks age, move, breed, and die.
@@ -8,7 +7,7 @@ package src;
  * Sharks are loners - they prefer not to swim next to each other
  * @author Richard Jones and Michael Kolling
  */
-public class Shark extends Fish
+public class Shark extends Fish// implements Actor
 {
     public Shark(Ocean ocean, Location location){
         super(ocean,location);

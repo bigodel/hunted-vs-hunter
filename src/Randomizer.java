@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package src;
 
 import java.util.Random;
 
 /**
  * Provide control over the randomization of the simulation.
- * 
+ *
  * @author David J. Barnes and Michael Kolling
  * @version 2008.03.30
  */
@@ -42,7 +37,7 @@ public class Randomizer
             return new Random();
         }
     }
-    
+
     /**
      * Reset the randomization.
      * This will have no effect if randomization is not through
