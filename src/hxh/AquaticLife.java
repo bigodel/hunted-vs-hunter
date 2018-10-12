@@ -3,8 +3,12 @@ package hxh;
 import java.util.Random;
 
 /**
+ * The class emcompasses all aquatic life, be it fish or seaweed or crustacean,
+ * etc. It has no abstract methods, so it probably shouldn't even be abstract...
+ * Every aquatic thing that has life is either alive or dead. It also stores the
+ * ocean the life form is in and its location.
  *
- * @author cyborg
+ * @author Max William S. Filgueira, João Pedro de A. Paula
  */
 abstract public class AquaticLife
 {
@@ -14,6 +18,13 @@ abstract public class AquaticLife
     private Ocean ocean;
     private static final Random rand = Randomizer.getRandom();
 
+    /**
+     * Constructor for an aquatic life in a given ocean and location.
+     *
+     * @param ocean The ocean the aquatic life is in.
+     * @param location A specified location to place the aquatic life form.
+     * @return A new aquatic life.
+     */
     public AquaticLife(Ocean ocean, Location location)
     {
         alive = true;
@@ -44,11 +55,12 @@ abstract public class AquaticLife
             ocean = null;
         }
     }
+
     /**
      * Indicate that the lifeform is no longer alive.
      * Used only with seaweeds;
      */
-    public void Death()
+    public void death()
     {
         alive = false;
     }
@@ -63,9 +75,8 @@ abstract public class AquaticLife
     }
 
     /**
-     * sets the lifeform's location.
+     * Sets the lifeform's location.
      * @param newLocation the lifeform's new location.
-     * 
      */
     public void setLocation(Location newLocation)
     {
@@ -85,7 +96,7 @@ abstract public class AquaticLife
     }
 
     /**
-     * sets the lifeform's ocean.
+     * Sets the lifeform's ocean.
      * @param ocean new ocean where the life form will swim.
      */
     public void setOcean(Ocean ocean)
@@ -93,7 +104,7 @@ abstract public class AquaticLife
         this.ocean = ocean;
     }
     /**
-     *
+     * Return the food level of the life form.
      * @return the value of the foodLevel;
      */
     public int getfoodLevel()
@@ -102,21 +113,22 @@ abstract public class AquaticLife
     }
 
     /**
-     *
+     * Sets the lifeform's food level.
      * @param foodLevel the new foodlevel;
      */
     public void setfoodLevel(int foodLevel)
     {
-        if(this.foodLevel + foodLevel >= 10){
+        if (this.foodLevel + foodLevel >= 10){
             this.foodLevel = 10;
         }
-        else   {
+        else {
             this.foodLevel += foodLevel;
         }
     }
 
     /**
-     * @return
+     * Return a random ???
+     * @return A random ???
      */
     public Random getRand()
     {

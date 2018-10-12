@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  *
- * @author cyborg
+ * @author Max William S. Filgueira, João Pedro de A. Paula
  */
 public class Seaweed extends AquaticLife implements Actor
 {
@@ -117,7 +117,7 @@ public class Seaweed extends AquaticLife implements Actor
 
         return free;
     }
-   
+
     /**
      * Indicate that the lifeform is no longer alive.
      * It is removed from the ocean.
@@ -125,7 +125,7 @@ public class Seaweed extends AquaticLife implements Actor
     @Override
     public void setDead()
     {
-        Death();
+        death();
         Ocean ocean = getOcean();
         Location location = getLocation();
         if(location != null) {

@@ -5,16 +5,17 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Write a description of class Fish here.
+ * Abstract class for all types of fish. Fish eat, find food, give birth and get
+ * hungry. The only abstract method is giveBirth since that is specific for each
+ * type of fish
  *
- * NOTE: This should serve as a superclass to all specific tyes of fish
+ * NOTE: This should serve as a superclass to all specific types of fish
  *
  * @author João Pedro de A. Paula, Max William S. Filgueira
  * @version 2018-10-09
  */
 abstract public class Fish extends AquaticLife
 {
-
     /**
      * Create a new fish at location in ocean.
      *
@@ -37,7 +38,7 @@ abstract public class Fish extends AquaticLife
         Location location = getLocation();
         Ocean ocean = getOcean();
 
-        if(location != null) {
+        if (location != null) {
             ocean.clear(location);
         }
 
@@ -59,8 +60,7 @@ abstract public class Fish extends AquaticLife
         List<Location> adjacent = ocean.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
 
-        while(it.hasNext()) {
-
+        while (it.hasNext()) {
             Location where = it.next();
             Fish fish = ocean.getFishAt(where.getRow(),where.getCol());
 
@@ -75,13 +75,14 @@ abstract public class Fish extends AquaticLife
     abstract protected void giveBirth(List<Actor> newFish);
 
     /**
+     * Increment a fish's hunger.
      * All fish starve eventually.
      */
     public void incrementHunger()
     {
         setfoodLevel(getfoodLevel() - 1);
 
-        if(getfoodLevel() <= 0){
+        if (getfoodLevel() <= 0){
             setDead();
         }
     }
