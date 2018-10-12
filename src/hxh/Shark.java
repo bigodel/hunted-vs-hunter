@@ -13,13 +13,27 @@ import java.util.Random;
 public class Shark extends Fish  implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.35;
-    private static int BREEDING_AGE = 5; 
+    private static int BREEDING_AGE = 5;
     private final int MAX_BREED_PER_ROUND = 2;
 
+    /**
+     * Constructor for the Shark to place it in a location in the ocean. Also,
+     * set the maximum age for it to live.
+     *
+     * @param ocean The ocean to place the shark
+     * @param location The location to place the shark
+     * @return A new shark
+     */
     public Shark(Ocean ocean, Location location){
         super(ocean,location);
+        setMaxAge(70);
     }
 
+    /**
+     * Eat food at the location.
+     *
+     * @param location Location where the food is
+     */
     public void eat(Location location)
     {
         Fish fish = getOcean().getFishAt(location);
@@ -49,10 +63,10 @@ public class Shark extends Fish  implements Actor
     }
 
     /**
-     * Check whether or not this tuna is to give birth at this step.
+     * Check whether or not this shark is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param newShark A list to add newly born rabbits to.
+     * @param newShark A list to add newly born sharks to.
      */
     protected void giveBirth(List<Actor> newShark)
     {
@@ -68,6 +82,11 @@ public class Shark extends Fish  implements Actor
         }
     }
 
+    /**
+     * Make the shark act. In this case, it will get hungrier, older and maybe
+     * give birth to new sharks and also move. If the shark is old enough or
+     * starves, dying is also a part of act.
+     */
     public void act(List<Actor> shark)
     {
         incrementHunger();
@@ -83,27 +102,27 @@ public class Shark extends Fish  implements Actor
             }
             else {
                 newLocation = findFood(loc,Sardine.class);
-                if(newLocation != null){
+                if (newLocation != null){
                     eat(newLocation);
                 }
             }
 
             if(newLocation == null){
-
                 newLocation = getOcean().freeAdjacentLocation(loc);
-                if (newLocation != null)
-                    //setLocation(newLocation);
+
+                if (newLocation != null) {
                     setInOcean(newLocation);
-                else{
+                }
+                else {
                     setDead();
                 }
             }
         }
     }
-    
+
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * A shark can breed if it has reached the breeding age.
+     * @return true if the shark can breed, false otherwise.
      */
     private boolean canBreed()
     {

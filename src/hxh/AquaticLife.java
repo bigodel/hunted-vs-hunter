@@ -4,11 +4,11 @@ import java.util.Random;
 
 /**
  * The class emcompasses all aquatic life, be it fish or seaweed or crustacean,
- * etc. It has no abstract methods, so it probably shouldn't even be abstract...
- * Every aquatic thing that has life is either alive or dead. It also stores the
- * ocean the life form is in and its location.
+ * etc. Every aquatic thing that has life is either alive or dead. It also
+ * stores the ocean the life form is in and its location.
  *
  * @author Max William S. Filgueira, João Pedro de A. Paula
+ * @version 2018.10.09
  */
 abstract public class AquaticLife
 {
@@ -34,7 +34,7 @@ abstract public class AquaticLife
     }
 
     /**
-     * @return true if the life form is alive.
+     * @return true if the life form is alive. false, otherwise.
      */
     public boolean isAlive()
     {
@@ -104,6 +104,7 @@ abstract public class AquaticLife
     {
         this.ocean = ocean;
     }
+
     /**
      * Return the food level of the life form.
      * @return the value of the foodLevel;
@@ -128,8 +129,8 @@ abstract public class AquaticLife
     }
 
     /**
-     * Return a random ???
-     * @return A random ???
+     * Return a random number generator.
+     * @return A random number generator.
      */
     public Random getRand()
     {

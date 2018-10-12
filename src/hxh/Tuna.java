@@ -16,11 +16,25 @@ public class Tuna extends Fish implements Actor
     private final int MAX_BREED_PER_ROUND = 4;
     private static int BREEDING_AGE = 4;
 
+    /**
+     * Constructor for the Tuna to place it in a location in the ocean. Also,
+     * set the maximum age for it to live.
+     *
+     * @param ocean The ocean to place the tuna
+     * @param location The location to place the tuna
+     * @return A new tuna
+     */
     public Tuna(Ocean ocean, Location location)
     {
         super(ocean,location);
+        setMaxAge(20);
     }
 
+    /**
+     * Eat food at the location.
+     *
+     * @param location Location where the food is
+     */
     public void eat(Location location)
     {
         Fish fish = getOcean().getFishAt(location);
@@ -55,7 +69,7 @@ public class Tuna extends Fish implements Actor
      * Check whether or not this tuna is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param newTuna A list to add newly born rabbits to.
+     * @param newTuna A list to add newly born tuna to.
      */
     protected void giveBirth(List<Actor> newTuna)
     {
@@ -71,36 +85,44 @@ public class Tuna extends Fish implements Actor
         }
     }
 
+    /**
+     * Make the tuna act. In this case, it will get hungrier, older and maybe
+     * give birth to new tunas and also move. If the tuna is old enough or
+     * starves, dying is also a part of act.
+     */
     public void act(List<Actor> tunas)
     {
         incrementHunger();
         incrementAge();
+
         if (isAlive()) {
             giveBirth(tunas);
             Location loc = getLocation();
             Location newLocation = findFood(loc, Sardine.class);
 
-            if (newLocation != null)
+            if (newLocation != null) {
                 eat(newLocation);
-            else{
+            }
+            else {
                 newLocation = getOcean().freeAdjacentLocation(loc);
-                
+
                 if (newLocation != null)
-                    //setLocation(newLocation);
                     setInOcean(newLocation);
             }
-            if(newLocation == null){
+
+            if (newLocation == null) {
                 setDead();
             }
         }
     }
-    
+
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * A tuna can breed if it has reached the breeding age.
+     *
+     * @return true if the tuna can breed, false otherwise.
      */
     private boolean canBreed()
     {
-       return getAge() >= BREEDING_AGE;
+        return getAge() >= BREEDING_AGE;
     }
 }

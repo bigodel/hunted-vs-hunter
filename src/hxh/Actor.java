@@ -3,7 +3,12 @@ package hxh;
 import java.util.List;
 
 /**
+ * An interface for every thing that might be able to act.
+ * Every class that implements Actor needs to define what it means to act for
+ * that class.
+ *
  * @author João Pedro de A. Paula, Max William S. Filgueira
+ * @version 2018.10.06
  */
 public interface Actor {
     /**
@@ -13,8 +18,7 @@ public interface Actor {
     void act(List<Actor> newActors);
 
     /**
-     *
-     * @return true
+     * @return true if the actor is alive. false, otherwise.
      */
     boolean isAlive();
 }

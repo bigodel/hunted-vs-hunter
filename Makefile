@@ -35,7 +35,7 @@ all : jar
 # Jar
 jar : compile $(PKG)
 $(PKG) : $(OBJS)
-	$(JAR) cf $(PKG) -C $(OBJDIR) .
+	$(JAR) cvf $(PKG) -C $(OBJDIR) .
 
 # Compile
 compile : $(OBJDIR) $(OBJS)
