@@ -8,7 +8,7 @@ Intended as an exercise in Java based on the [BlueJ](www.bluej.org) Textbook.
 
 Run the program with:
 
-```Java -jar Simulator.Jar```
+```Java -jar Simulator.jar```
 # Authorship
 
 Program developed by [Max William](github.com/maxwillf) and [João Pedro de Amorim](github.com/heartb1t).
