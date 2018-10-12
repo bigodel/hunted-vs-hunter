@@ -16,6 +16,7 @@ public class Sardine extends Fish implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.25;
     private final int MAX_BREED_PER_ROUND = 3;
+    private final int BREEDING_AGE = 3;
 
     public Sardine(Ocean ocean, Location location)
     {
@@ -25,22 +26,25 @@ public class Sardine extends Fish implements Actor
     public void act(List<Actor> actors)
     {
         incrementHunger();
-
+        incrementAge();
         if (isAlive()) {
             giveBirth(actors);
             Location loc = getLocation();
             Location newLocation = findFood(loc);
 
             if (newLocation != null)
-                setLocation(newLocation);
+               // setLocation(newLocation);
+                setInOcean(newLocation);
             else{
                 newLocation = getOcean().freeAdjacentLocation(loc);
+                
+                if (newLocation != null)
+                    //setLocation(newLocation);
+                    setInOcean(newLocation);
             }
-
-            if (newLocation != null)
-                setLocation(newLocation);
-            else
+            if(newLocation == null){
                 setDead();
+            }
         }
     }
 
@@ -53,7 +57,7 @@ public class Sardine extends Fish implements Actor
     {
         Seaweed seaweed = (Seaweed) getOcean().getSeaweedAt(location);
         this.setfoodLevel(seaweed.getfoodLevel());
-        setLocation(location);
+        setInOcean(location);
     }
 
     private Location findFood(Location location)
@@ -107,7 +111,7 @@ public class Sardine extends Fish implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (/*canBreed() && */ rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
 
@@ -118,8 +122,8 @@ public class Sardine extends Fish implements Actor
      * A rabbit can breed if it has reached the breeding age.
      * @return true if the rabbit can breed, false otherwise.
      */
-    //private boolean canBreed()
-    //{
-    //   return age >= BREEDING_AGE;
-    //}
+    private boolean canBreed()
+    {
+       return getAge() >= BREEDING_AGE;
+    }
 }

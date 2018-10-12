@@ -45,7 +45,7 @@ public class Seaweed extends AquaticLife implements Actor
         Ocean ocean = getOcean();
 
         if (location != null) {
-            ocean.clear(location);
+            ocean.clearSeaweed(location);
         }
 
         location = newLocation;
@@ -62,11 +62,12 @@ public class Seaweed extends AquaticLife implements Actor
         // New seaweeds are born into adjacent locations.
         // Get a list of adjacent free locations.
         List<Location> free = this.getFreeAdjacentLocations(getLocation());
+        Ocean ocean = getOcean();
         int births = breed();
 
         for (int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            newSeaweed.add(new Seaweed(getOcean(),loc));
+            newSeaweed.add(new Seaweed(ocean, loc));
         }
     }
 

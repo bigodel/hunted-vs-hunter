@@ -13,6 +13,7 @@ import java.util.Random;
 public class Shark extends Fish  implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.35;
+    private static int BREEDING_AGE = 5; 
     private final int MAX_BREED_PER_ROUND = 2;
 
     public Shark(Ocean ocean, Location location){
@@ -24,7 +25,9 @@ public class Shark extends Fish  implements Actor
         Fish fish = getOcean().getFishAt(location);
 
         this.setfoodLevel(fish.getfoodLevel());
-        setLocation(location);
+        //setLocation(location);
+        fish.setDead();
+        setInOcean(location);
     }
 
     /**
@@ -68,6 +71,7 @@ public class Shark extends Fish  implements Actor
     public void act(List<Actor> shark)
     {
         incrementHunger();
+        incrementAge();
 
         if (isAlive()) {
             giveBirth(shark);
@@ -88,10 +92,21 @@ public class Shark extends Fish  implements Actor
 
                 newLocation = getOcean().freeAdjacentLocation(loc);
                 if (newLocation != null)
-                    setLocation(newLocation);
-                else
+                    //setLocation(newLocation);
+                    setInOcean(newLocation);
+                else{
                     setDead();
+                }
             }
         }
+    }
+    
+    /**
+     * A rabbit can breed if it has reached the breeding age.
+     * @return true if the rabbit can breed, false otherwise.
+     */
+    private boolean canBreed()
+    {
+       return getAge() >= BREEDING_AGE;
     }
 }

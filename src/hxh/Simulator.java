@@ -82,6 +82,18 @@ public class Simulator
 
         // Create an array list for the new actors that might be born
         ArrayList<Actor> newActors = new ArrayList<Actor>();
+        int sea = 0;
+        int shark = 0;
+        int sardine = 0;
+        int tuna = 0;
+        for(Actor actor : actors){
+            if (actor instanceof Seaweed) sea++;
+            if (actor instanceof Shark) shark++;
+            if (actor instanceof Sardine) sardine++;
+            if (actor instanceof Tuna) tuna++;
+        }
+
+        System.out.println(sea + " " + shark +" " + sardine + " " + tuna);
 
         // Let them all act
         for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
