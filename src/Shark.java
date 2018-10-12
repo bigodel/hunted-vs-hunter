@@ -23,8 +23,8 @@ public class Shark extends Fish  implements Actor
         
         this.setfoodLevel(fish.getfoodLevel());
         //setLocation(location);
-        setInOcean(location);
         fish.setDead();
+        setInOcean(location);
     }
 
     /**
@@ -93,8 +93,9 @@ public class Shark extends Fish  implements Actor
                 if (newLocation != null)
                     //setLocation(newLocation);
                     setInOcean(newLocation);
-                else
+                else{
                     setDead();
+                }
             }
         }
     }

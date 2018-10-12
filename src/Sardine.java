@@ -111,7 +111,7 @@ public class Sardine extends Fish implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (/*canBreed() && */ rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
 

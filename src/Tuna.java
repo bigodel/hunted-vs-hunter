@@ -14,6 +14,7 @@ public class Tuna extends Fish implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.35;
     private final int MAX_BREED_PER_ROUND = 4;
+    private static int BREEDING_AGE = 4;
 
     public Tuna(Ocean ocean, Location location)
     {
@@ -43,7 +44,7 @@ public class Tuna extends Fish implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (/*canBreed() && */ rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
 
@@ -73,6 +74,7 @@ public class Tuna extends Fish implements Actor
     public void act(List<Actor> tunas)
     {
         incrementHunger();
+        incrementAge();
         if (isAlive()) {
             giveBirth(tunas);
             Location loc = getLocation();
@@ -91,5 +93,14 @@ public class Tuna extends Fish implements Actor
                 setDead();
             }
         }
+    }
+    
+    /**
+     * A rabbit can breed if it has reached the breeding age.
+     * @return true if the rabbit can breed, false otherwise.
+     */
+    private boolean canBreed()
+    {
+       return getAge() >= BREEDING_AGE;
     }
 }

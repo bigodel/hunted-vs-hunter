@@ -35,14 +35,14 @@ abstract public class Fish extends AquaticLife
      */
     public void setInOcean(Location newLocation)
     {
-        Location location = getLocation();
-        Ocean ocean = getOcean();
+/*        Location location = getLocation();
 
         if(location != null) {
             ocean.clear(location);
         }
-
-        location = newLocation;
+*/
+        Ocean ocean = getOcean();
+        setLocation(newLocation);
         ocean.place(this, newLocation);
     }
 
@@ -78,6 +78,7 @@ abstract public class Fish extends AquaticLife
     /**
      * All fish starve eventually.
      */
+
     public void incrementHunger()
     {
         setfoodLevel(getfoodLevel() - 1);
@@ -86,13 +87,17 @@ abstract public class Fish extends AquaticLife
             setDead();
         }
     }
+
     public void incrementAge()
     {
         age++;
+        // magic value for now change it later
+        // the fish dies if it gets too old
         if(age >= 10){
             setDead();
         }
     }
+
     public int getAge(){
         return age;
     }
