@@ -27,15 +27,19 @@ SOURCES = $(shell find $(SRCDIR) \
 # Obj files
 OBJS = $(patsubst $(SRCDIR)/%, $(OBJDIR)/%, $(patsubst %.java, %.class, $(SOURCES)))
 
-.PHONY: all compile jar clean rebuild
+.PHONY: all run compile jar clean rebuild
 
 # Default target
 all : jar
 
+# run
+run : jar
+	$(JAVA_HOME)/bin/java -cp $(PKG).jar hxh.Simulator
+
 # Jar
 jar : compile $(PKG)
 $(PKG) : $(OBJS)
-	$(JAR) cf $(PKG) -C $(OBJDIR) .
+	$(JAR) cvf $(PKG).jar -C $(OBJDIR) .
 
 # Compile
 compile : $(OBJDIR) $(OBJS)

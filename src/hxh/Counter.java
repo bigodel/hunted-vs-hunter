@@ -1,10 +1,9 @@
 package hxh;
 
 /**
- * Provide a counter for a participant in the simulation.
- * This includes an identifying string and a count of how
- * many participants of this type currently exist within
- * the simulation.
+ * Provide a counter for a participant in the simulation. This includes an
+ * identifying string and a count of how many participants of this type
+ * currently exist within the simulation.
  *
  * @author David J. Barnes and Michael Kolling
  * @version 2003.10.28

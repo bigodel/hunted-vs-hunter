@@ -1,7 +1,7 @@
 package hxh;
 
 import java.util.Collections;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +18,7 @@ public class Ocean
     private final Fish[][] fish;
     private final Integer height;
     private final Integer width;
+    private final Random rand = Randomizer.getRandom();
 
     /**
      * Default constructor for ocean with default values.
@@ -66,6 +67,7 @@ public class Ocean
 
     /**
      * Return the fish at the given location, if any.
+     *
      * @param location The desired location.
      * @return The fish at the given location, or null if there is none.
      */
@@ -94,6 +96,7 @@ public class Ocean
      * Return a shuffled list of locations adjacent to the given one.
      * The list will not include the location itself.
      * All locations will lie within the grid.
+     *
      * @param location The location from which to generate adjacencies.
      * @return A list of locations adjacent to that given.
      */
@@ -101,18 +104,21 @@ public class Ocean
     {
         assert location != null : "Null location passed to adjacentLocations";
         // The list of locations to be returned.
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new LinkedList<Location>();
+
         if(location != null) {
-            int height = location.getRow();
-            int width = location.getCol();
-            for(int roffset = -1; roffset <= 1; roffset++) {
-                int nextRow = height + roffset;
-                if(nextRow >= 0 && nextRow < height) {
-                    for(int coffset = -1; coffset <= 1; coffset++) {
-                        int nextCol = width + coffset;
+            int row = location.getRow();
+            int col = location.getCol();
+
+            for (int roffset = -1; roffset <= 1; roffset++) {
+                int nextRow = row + roffset;
+
+                if (nextRow >= 0 && nextRow < this.height) {
+                    for (int coffset = -1; coffset <= 1; coffset++) {
+                        int nextCol = col + coffset;
                         // Exclude invalid locations and the original location.
-                        if(nextCol >= 0 && nextCol < width &&
-                           (roffset != 0 || coffset != 0)) {
+                        if (nextCol >= 0 && nextCol < this.width &&
+                            (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
                         }
                     }
@@ -121,8 +127,9 @@ public class Ocean
 
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
-            //            Collections.shuffle(locations, rand);
+            Collections.shuffle(locations, rand);
         }
+
         return locations;
     }
 
@@ -141,6 +148,7 @@ public class Ocean
 
     /**
      * Clear the given location.
+     *
      * @param location The location to clear.
      */
     public void clear(Location location)
@@ -149,7 +157,8 @@ public class Ocean
     }
 
     /**
-     * Clear the given location.
+     * Clear the seaweed at given location.
+     *
      * @param location The location to clear.
      */
     public void clearSeaweed(Location location)
@@ -161,6 +170,7 @@ public class Ocean
      * Place an fish at the given location.
      * If there is already an fish at the location it will
      * be lost.
+     *
      * @param fish The fish to be placed.
      * @param height Row coordinate of the location.
      * @param width Column coordinate of the location.
@@ -171,9 +181,10 @@ public class Ocean
     }
 
     /**
-     * Place an fish at the given location.
+     * Place a fish at the given location.
      * If there is already an fish at the location it will
      * be lost.
+     *
      * @param newFish The fish to be placed.
      * @param location Where to place the fish.
      */
@@ -181,10 +192,12 @@ public class Ocean
     {
         fish[location.getRow()][location.getCol()] = newFish;
     }
+
     /**
-     * Place an Seaweed at the given location.
-     * If there is already an fish at the location it will
+     * Place a seaweed at the given location.
+     * If there is already a seaweed at the location it will
      * be lost.
+     *
      * @param newSeaweed The seaweed to be placed.
      * @param location Where to place the seaweed.
      */
@@ -192,11 +205,13 @@ public class Ocean
     {
         seaweed[location.getRow()][location.getCol()] = newSeaweed;
     }
+
     /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
      * The returned location will be within the valid bounds
      * of the ocean.
+     *
      * @param location The location from which to generate an adjacency.
      * @return A valid location within the grid area.
      */
@@ -204,27 +219,31 @@ public class Ocean
     {
         // The available free ones.
         List<Location> free = getFreeAdjacentLocations(location);
-        if(free.size() > 0) {
+
+        if (free.size() > 0) {
             return free.get(0);
         }
         else {
             return null;
         }
     }
+
     /**
      * Get a shuffled list of the free adjacent locations.
+     *
      * @param location Get locations adjacent to this.
      * @return A list of free adjacent locations.
      */
     public List<Location> getFreeAdjacentLocations(Location location)
     {
-        List<Location> free = new ArrayList<Location>();
+        List<Location> free = new LinkedList<Location>();
         List<Location> adjacent = adjacentLocations(location);
-        for(Location next : adjacent) {
-            if(getFishAt(next) == null) {
+
+        for (Location next : adjacent) {
+            if (getFishAt(next) == null)
                 free.add(next);
-            }
         }
+
         return free;
     }
 }

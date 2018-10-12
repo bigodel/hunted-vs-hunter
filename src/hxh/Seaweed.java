@@ -6,40 +6,53 @@ import java.util.Random;
 
 /**
  *
- * @author cyborg
+ * @author Max William S. Filgueira, João Pedro de A. Paula
  */
 public class Seaweed extends AquaticLife implements Actor
 {
     private static final double BREEDING_PROBABILITY = 0.10;
     private static final int MAX_SEAWEED_PER_ROUND = 3;
 
-    public Seaweed(Ocean ocean, Location location)
+    /**
+     * Constructor for seaweeds. Create a new seaweed in the given ocean and
+     * location.
+     *
+     * @param ocean The ocean to place the seaweed
+     * @param location Where in the ocean to place the seaweed
+     * @return A new seaweed
+     */
+        public Seaweed(Ocean ocean, Location location)
     {
         super(ocean,location);
         setInOcean(location);
     }
 
+    /**
+     * Make the seaweed act. In this case, it will feed and give birth to new
+     * seaweeds if fed enough.
+     */
     public void act(List<Actor> actors)
     {
         feed();
 
         if (isAlive()) {
-            if(getfoodLevel() == 10){
+            if (getfoodLevel() == 10){
                 giveBirth(actors);
             }
         }
-        else {
-            setDead();
-        }
     }
 
+    /**
+     * Increment the food level of the seaweed by one.
+     */
     public void feed()
     {
-        setfoodLevel(getfoodLevel()+1);
+        setfoodLevel(getfoodLevel() + 1);
     }
 
     /**
      * Place the seaweed at the new location in the given ocean.
+     *
      * @param newLocation The seaweed's new location.
      */
     public void setInOcean(Location newLocation)
@@ -48,7 +61,7 @@ public class Seaweed extends AquaticLife implements Actor
         Ocean ocean = getOcean();
 
         if (location != null) {
-            ocean.clear(location);
+            ocean.clearSeaweed(location);
         }
 
         location = newLocation;
@@ -56,28 +69,29 @@ public class Seaweed extends AquaticLife implements Actor
     }
 
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this seaweed is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newRabbits A list to add newly born rabbits to.
+     *
+     * @param newSeaweed A list to add newly born seaweeds to.
      */
     private void giveBirth(List<Actor> newSeaweed)
     {
         // New seaweeds are born into adjacent locations.
         // Get a list of adjacent free locations.
+        List<Location> free = this.getFreeAdjacentLocations(getLocation());
         Ocean ocean = getOcean();
-        List<Location> free = ocean.getFreeAdjacentLocations(getLocation());
         int births = breed();
 
         for (int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            newSeaweed.add(new Seaweed(ocean,loc));
+            newSeaweed.add(new Seaweed(ocean, loc));
         }
     }
-
 
     /**
      * Generate a number representing the number of births,
      * if it can breed.
+     *
      * @return The number of births (may be zero).
      */
     private int breed()
@@ -85,7 +99,7 @@ public class Seaweed extends AquaticLife implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_SEAWEED_PER_ROUND) + 1;
         }
 
@@ -93,17 +107,10 @@ public class Seaweed extends AquaticLife implements Actor
     }
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
-     */
-    //private boolean canBreed()
-    //{
-    //   return age >= BREEDING_AGE;
-    //}
-     /**
      * Get a shuffled list of the free adjacent locations.
      * The same as the one in ocean but this time it searches
-     * for spaces without Seaweed.
+     * for spaces without seaweed.
+     *
      * @param location Get locations adjacent to this.
      * @return A list of free adjacent locations.
      */
@@ -120,5 +127,24 @@ public class Seaweed extends AquaticLife implements Actor
         }
 
         return free;
+    }
+
+    /**
+     * Indicate that the seaweed is no longer alive.
+     * It is removed from the ocean.
+     */
+    @Override
+    public void setDead()
+    {
+        death();
+
+        Ocean ocean = getOcean();
+        Location location = getLocation();
+
+        if (location != null) {
+            ocean.clearSeaweed(location);
+            location = null;
+            setOcean(null);
+        }
     }
 }

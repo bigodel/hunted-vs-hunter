@@ -5,18 +5,19 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Write a description of class Fish here.
+ * Abstract class for all types of fish. Fish eat, find food, give birth and get
+ * hungry. The only abstract method is giveBirth since that is specific for each
+ * type of fish
  *
- * NOTE: This should serve as a superclass to all specific tyes of fish
+ * NOTE: This should serve as a superclass to all specific types of fish
  *
  * @author João Pedro de A. Paula, Max William S. Filgueira
- * @version 2018-10-09
+ * @version 2018.10.09
  */
 abstract public class Fish extends AquaticLife
 {
-    private boolean alive;
-    private Location location;
-    private Ocean ocean;
+    private int age;
+    private int maxAge;
 
     /**
      * Create a new fish at location in ocean.
@@ -28,6 +29,8 @@ abstract public class Fish extends AquaticLife
     {
         super(ocean, location);
         setInOcean(location);
+        age = 0;
+        maxAge = 10;
     }
 
     /**
@@ -37,14 +40,8 @@ abstract public class Fish extends AquaticLife
      */
     public void setInOcean(Location newLocation)
     {
-        Location location = getLocation();
         Ocean ocean = getOcean();
-
-        if(location != null) {
-            ocean.clear(location);
-        }
-
-        location = newLocation;
+        setLocation(newLocation);
         ocean.place(this, newLocation);
     }
 
@@ -58,14 +55,15 @@ abstract public class Fish extends AquaticLife
      */
     public Location findFood(Location location, Class<?> Food)
     {
-        List<Location> adjacent = getOcean().adjacentLocations(getLocation());
+        Ocean ocean = getOcean();
+        List<Location> adjacent = ocean.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Location where = it.next();
-            Fish fish = getOcean().getFishAt(where.getRow(),where.getCol());
+            Fish fish = ocean.getFishAt(where.getRow(),where.getCol());
 
-            if(fish.getClass() == Food) {
+            if(fish != null && fish.getClass() == Food) {
                 return where;
             }
         }
@@ -73,17 +71,55 @@ abstract public class Fish extends AquaticLife
         return null;
     }
 
+    /**
+     * Every fish gives birth, so "daugther's" of the Fish class need to
+     * implement how each fish gives birth.
+     *
+     * @param newFish A list to add newly born fish's to it
+     */
     abstract protected void giveBirth(List<Actor> newFish);
 
     /**
+     * Increment a fish's hunger.
      * All fish starve eventually.
      */
     public void incrementHunger()
     {
         setfoodLevel(getfoodLevel() - 1);
 
-        if(getfoodLevel() <= 0){
+        if (getfoodLevel() <= 0){
             setDead();
         }
     }
+
+    /**
+     * Increment the fish's age by one.
+     * The fish dies if it gets too old.
+     */
+    public void incrementAge()
+    {
+        age++;
+
+        // magic value for now change it later
+        // the fish dies if it gets too old
+        if (age >= maxAge){
+            setDead();
+        }
+    }
+
+    /**
+     * @return The fish's age
+     */
+    public int getAge(){
+        return age;
+    }
+
+    /**
+     * Sets the fish maximum age to live.
+     */
+    public void setMaxAge(int maxAge)
+    {
+        this.maxAge = maxAge;
+    }
+
 }

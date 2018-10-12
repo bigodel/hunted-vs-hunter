@@ -3,8 +3,12 @@ package hxh;
 import java.util.Random;
 
 /**
+ * The class emcompasses all aquatic life, be it fish or seaweed or crustacean,
+ * etc. Every aquatic thing that has life is either alive or dead. It also
+ * stores the ocean the life form is in and its location.
  *
- * @author cyborg
+ * @author Max William S. Filgueira, João Pedro de A. Paula
+ * @version 2018.10.09
  */
 abstract public class AquaticLife
 {
@@ -14,15 +18,23 @@ abstract public class AquaticLife
     private Ocean ocean;
     private static final Random rand = Randomizer.getRandom();
 
+    /**
+     * Constructor for an aquatic life in a given ocean and location.
+     *
+     * @param ocean The ocean the aquatic life is in.
+     * @param location A specified location to place the aquatic life form.
+     * @return A new aquatic life.
+     */
     public AquaticLife(Ocean ocean, Location location)
     {
         alive = true;
         this.ocean = ocean;
-        foodLevel = 0;
+        this.location = location;
+        foodLevel = 5;
     }
 
     /**
-     * @return true if the life form is alive.
+     * @return true if the life form is alive. false, otherwise.
      */
     public boolean isAlive()
     {
@@ -45,6 +57,15 @@ abstract public class AquaticLife
     }
 
     /**
+     * Indicate that the lifeform is no longer alive.
+     * Used only with seaweeds;
+     */
+    public void death()
+    {
+        alive = false;
+    }
+
+    /**
      * Return the lifeform's location.
      * @return The lifeform's location.
      */
@@ -54,12 +75,15 @@ abstract public class AquaticLife
     }
 
     /**
-     * Return the lifeform's location.
+     * Sets the lifeform's location.
      * @param newLocation the lifeform's new location.
-     * @return The lifeform's location.
      */
     public void setLocation(Location newLocation)
     {
+        Ocean ocean = getOcean();
+        if(location != null){
+            ocean.clear(location);
+        }
         this.location = newLocation;
     }
 
@@ -73,7 +97,16 @@ abstract public class AquaticLife
     }
 
     /**
-     *
+     * Sets the lifeform's ocean.
+     * @param ocean new ocean where the life form will swim.
+     */
+    public void setOcean(Ocean ocean)
+    {
+        this.ocean = ocean;
+    }
+
+    /**
+     * Return the food level of the life form.
      * @return the value of the foodLevel;
      */
     public int getfoodLevel()
@@ -82,19 +115,22 @@ abstract public class AquaticLife
     }
 
     /**
-     *
+     * Sets the lifeform's food level.
      * @param foodLevel the new foodlevel;
      */
     public void setfoodLevel(int foodLevel)
     {
-        if(foodLevel >= 10){
+        if (foodLevel >= 10){
             this.foodLevel = 10;
         }
-        this.foodLevel = foodLevel;
+        else {
+            this.foodLevel = foodLevel;
+        }
     }
 
     /**
-     * @return
+     * Return a random number generator.
+     * @return A random number generator.
      */
     public Random getRand()
     {

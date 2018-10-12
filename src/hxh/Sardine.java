@@ -11,35 +11,57 @@ import java.util.Random;
  * They exhibit flocking behaviour - they tend to seek company.
  * If they spot a predator close by, they panic.
  *
+ * @author Max William S. Filgueira, João Pedro de A. Paula
+ * @version 2018.10.09
  */
 public class Sardine extends Fish implements Actor
 {
-    private final double BREEDING_PROBABILITY = 0.25;
-    private final int MAX_BREED_PER_ROUND = 3;
+    private final double BREEDING_PROBABILITY = 1;
+    private final int MAX_BREED_PER_ROUND = 10;
+    private final int BREEDING_AGE = 1;
 
+    /**
+     * Constructor for the Sardine to place it in a location in the ocean. Also,
+     * set the maximum age for it to live.
+     *
+     * @param ocean The ocean to place the sardine
+     * @param location The location to place the sardine
+     * @return A new sardine
+     */
     public Sardine(Ocean ocean, Location location)
     {
         super(ocean, location);
+        setMaxAge(25);
     }
 
+    /**
+     * Make the sardine act. In this case, it will get hungrier, older and maybe
+     * give birth to new sardines and also move. If the sardine is old enough or
+     * starves, dying is also a part of act.
+     */
     public void act(List<Actor> actors)
     {
         incrementHunger();
+        incrementAge();
 
         if (isAlive()) {
             giveBirth(actors);
             Location loc = getLocation();
             Location newLocation = findFood(loc);
 
-            if (newLocation != null)
-                eat(newLocation);
-            else
+            if (newLocation != null) {
+                setInOcean(newLocation);
+            }
+            else {
                 newLocation = getOcean().freeAdjacentLocation(loc);
 
-            if (newLocation != null)
-                setLocation(newLocation);
-            else
+                if (newLocation != null)
+                    setInOcean(newLocation);
+            }
+
+            if (newLocation == null){
                 setDead();
+            }
         }
     }
 
@@ -52,26 +74,36 @@ public class Sardine extends Fish implements Actor
     {
         Seaweed seaweed = (Seaweed) getOcean().getSeaweedAt(location);
         this.setfoodLevel(seaweed.getfoodLevel());
-        setLocation(location);
+        setInOcean(location);
     }
 
+    /**
+     * Look for food in the surroundings of the sardine. If the sardine doesn't
+     * find food in its surroundings, it dies.
+     *
+     * @param location Position of the sardine in the ocean
+     * @return The new location of the sardine
+     */
     private Location findFood(Location location)
     {
         Ocean ocean = getOcean();
         List<Location> adjacent = ocean.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
+
+        while (it.hasNext()) {
             Location where = it.next();
             Seaweed seaweed = ocean.getSeaweedAt(where);
-            if(seaweed != null) {
-                if(seaweed.isAlive()) {
-                    seaweed.setDead();
+
+            if (seaweed != null) {
+                if (seaweed.isAlive()) {
                     setfoodLevel(seaweed.getfoodLevel());
+                    seaweed.setDead();
                     // Remove the eaten seaweed from the field.
                     return where;
                 }
             }
         }
+
         return null;
     }
 
@@ -95,10 +127,10 @@ public class Sardine extends Fish implements Actor
         }
     }
 
-
     /**
      * Generate a number representing the number of births,
      * if it can breed.
+     *
      * @return The number of births (may be zero).
      */
     private int breed()
@@ -106,7 +138,7 @@ public class Sardine extends Fish implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
 
@@ -114,11 +146,12 @@ public class Sardine extends Fish implements Actor
     }
 
     /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
+     * A sardine can breed if it has reached the breeding age.
+     *
+     * @return true if the sardine can breed, false otherwise.
      */
-    //private boolean canBreed()
-    //{
-    //   return age >= BREEDING_AGE;
-    //}
+    private boolean canBreed()
+    {
+       return getAge() >= BREEDING_AGE;
+    }
 }
