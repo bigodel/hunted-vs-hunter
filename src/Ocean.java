@@ -1,7 +1,7 @@
 package src;
 
 import java.util.Collections;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +18,7 @@ public class Ocean
     private final Fish[][] fish;
     private final Integer height;
     private final Integer width;
+    private final Random rand = Randomizer.getRandom();
 
     /**
      * Default constructor for ocean with default values.
@@ -101,27 +102,27 @@ public class Ocean
     {
         assert location != null : "Null location passed to adjacentLocations";
         // The list of locations to be returned.
-        List<Location> locations = new ArrayList<Location>();
+        List<Location> locations = new LinkedList<Location>();
         if(location != null) {
-            int height = location.getRow();
-            int width = location.getCol();
+            int row = location.getRow();
+            int col = location.getCol();
             for(int roffset = -1; roffset <= 1; roffset++) {
-                int nextRow = height + roffset;
-                if(nextRow >= 0 && nextRow < height) {
+                int nextRow = row + roffset;
+                if(nextRow >= 0 && nextRow < this.height) {
                     for(int coffset = -1; coffset <= 1; coffset++) {
-                        int nextCol = width + coffset;
+                        int nextCol = col + coffset;
                         // Exclude invalid locations and the original location.
-                        if(nextCol >= 0 && nextCol < width &&
-                           (roffset != 0 || coffset != 0)) {
+                        if(nextCol >= 0 && nextCol < this.width &&
+                            (roffset != 0 || coffset != 0)) {
                             locations.add(new Location(nextRow, nextCol));
                         }
                     }
                 }
             }
-
+            
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
-            //            Collections.shuffle(locations, rand);
+            Collections.shuffle(locations, rand);
         }
         return locations;
     }
@@ -218,7 +219,7 @@ public class Ocean
      */
     public List<Location> getFreeAdjacentLocations(Location location)
     {
-        List<Location> free = new ArrayList<Location>();
+        List<Location> free = new LinkedList<Location>();
         List<Location> adjacent = adjacentLocations(location);
         for(Location next : adjacent) {
             if(getFishAt(next) == null) {

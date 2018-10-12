@@ -17,11 +17,11 @@ public class Simulator
     // default width
     private static final Integer DEFAULT_WIDTH = 50;
     // probability for creating a sardine
-    private static final double SARDINE_PROBABILITY = 0.08;
+    private static final double SARDINE_PROBABILITY = 0.008;
     // probability for creating a tuna
-    private static final double TUNA_PROBABILITY = 0.05;
+    private static final double TUNA_PROBABILITY = 0.005;
     // probability for creating a shark
-    private static final double SHARK_PROBABILITY = 0.02;
+    private static final double SHARK_PROBABILITY = 0.002;
     // probability for creating a seaweed
     private static final double SEAWEED_PROBABILITY = 0.1;
 
@@ -142,7 +142,7 @@ public class Simulator
 
     public static void main(String[] args)
     {
-        Simulator sim = new Simulator(50, 60);
+        Simulator sim = new Simulator(30, 60);
         sim.run(1000);
     }
 }

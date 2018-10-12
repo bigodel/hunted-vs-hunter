@@ -28,14 +28,11 @@ public class Seaweed extends AquaticLife implements Actor
                 giveBirth(actors);
             }
         }
-        else {
-            setDead();
-        }
     }
 
     public void feed()
     {
-        setfoodLevel(getfoodLevel() + 5);
+        setfoodLevel(getfoodLevel() + 1);
     }
 
     /**
@@ -64,13 +61,12 @@ public class Seaweed extends AquaticLife implements Actor
     {
         // New seaweeds are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Ocean ocean = getOcean();
-        List<Location> free = ocean.getFreeAdjacentLocations(getLocation());
+        List<Location> free = this.getFreeAdjacentLocations(getLocation());
         int births = breed();
 
         for (int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            newSeaweed.add(new Seaweed(ocean,loc));
+            newSeaweed.add(new Seaweed(getOcean(),loc));
         }
     }
 
@@ -120,5 +116,22 @@ public class Seaweed extends AquaticLife implements Actor
         }
 
         return free;
+    }
+   
+    /**
+     * Indicate that the lifeform is no longer alive.
+     * It is removed from the ocean.
+     */
+    @Override
+    public void setDead()
+    {
+        Death();
+        Ocean ocean = getOcean();
+        Location location = getLocation();
+        if(location != null) {
+            ocean.clearSeaweed(location);
+            location = null;
+            setOcean(null);
+        }
     }
 }

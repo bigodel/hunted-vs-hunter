@@ -14,9 +14,6 @@ import java.util.Random;
  */
 abstract public class Fish extends AquaticLife
 {
-    private boolean alive;
-    private Location location;
-    private Ocean ocean;
 
     /**
      * Create a new fish at location in ocean.
@@ -58,12 +55,14 @@ abstract public class Fish extends AquaticLife
      */
     public Location findFood(Location location, Class<?> Food)
     {
-        List<Location> adjacent = getOcean().adjacentLocations(getLocation());
+        Ocean ocean = getOcean();
+        List<Location> adjacent = ocean.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
 
         while(it.hasNext()) {
+
             Location where = it.next();
-            Fish fish = getOcean().getFishAt(where.getRow(),where.getCol());
+            Fish fish = ocean.getFishAt(where.getRow(),where.getCol());
 
             if(fish != null && fish.getClass() == Food) {
                 return where;

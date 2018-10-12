@@ -44,6 +44,14 @@ abstract public class AquaticLife
             ocean = null;
         }
     }
+    /**
+     * Indicate that the lifeform is no longer alive.
+     * Used only with seaweeds;
+     */
+    public void Death()
+    {
+        alive = false;
+    }
 
     /**
      * Return the lifeform's location.
@@ -55,12 +63,15 @@ abstract public class AquaticLife
     }
 
     /**
-     * Return the lifeform's location.
+     * sets the lifeform's location.
      * @param newLocation the lifeform's new location.
-     * @return The lifeform's location.
+     * 
      */
     public void setLocation(Location newLocation)
     {
+        if(location != null){
+            getOcean().clear(location);
+        }
         this.location = newLocation;
     }
 
@@ -73,6 +84,14 @@ abstract public class AquaticLife
         return ocean;
     }
 
+    /**
+     * sets the lifeform's ocean.
+     * @param ocean new ocean where the life form will swim.
+     */
+    public void setOcean(Ocean ocean)
+    {
+        this.ocean = ocean;
+    }
     /**
      *
      * @return the value of the foodLevel;
@@ -88,10 +107,12 @@ abstract public class AquaticLife
      */
     public void setfoodLevel(int foodLevel)
     {
-        if(foodLevel >= 10){
+        if(this.foodLevel + foodLevel >= 10){
             this.foodLevel = 10;
         }
-        this.foodLevel = foodLevel;
+        else   {
+            this.foodLevel += foodLevel;
+        }
     }
 
     /**

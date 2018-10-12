@@ -32,9 +32,10 @@ public class Sardine extends Fish implements Actor
             Location newLocation = findFood(loc);
 
             if (newLocation != null)
-                eat(newLocation);
-            else
+                setLocation(newLocation);
+            else{
                 newLocation = getOcean().freeAdjacentLocation(loc);
+            }
 
             if (newLocation != null)
                 setLocation(newLocation);
@@ -65,8 +66,8 @@ public class Sardine extends Fish implements Actor
             Seaweed seaweed = ocean.getSeaweedAt(where);
             if(seaweed != null) {
                 if(seaweed.isAlive()) {
-                    seaweed.setDead();
                     setfoodLevel(seaweed.getfoodLevel());
+                    seaweed.setDead();
                     // Remove the eaten seaweed from the field.
                     return where;
                 }
