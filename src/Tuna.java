@@ -26,7 +26,9 @@ public class Tuna extends Fish implements Actor
 
         if (fish instanceof Sardine) {
             this.setfoodLevel(fish.getfoodLevel());
-            setLocation(location);
+            //setLocation(location);
+            setInOcean(location);
+            fish.setDead();
         }
     }
 
@@ -78,13 +80,16 @@ public class Tuna extends Fish implements Actor
 
             if (newLocation != null)
                 eat(newLocation);
-            else
+            else{
                 newLocation = getOcean().freeAdjacentLocation(loc);
-
-            if (newLocation != null)
-                setLocation(newLocation);
-            else
+                
+                if (newLocation != null)
+                    //setLocation(newLocation);
+                    setInOcean(newLocation);
+            }
+            if(newLocation == null){
                 setDead();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Random;
  */
 abstract public class Fish extends AquaticLife
 {
-
+    private int age;    
     /**
      * Create a new fish at location in ocean.
      *
@@ -25,6 +25,7 @@ abstract public class Fish extends AquaticLife
     {
         super(ocean, location);
         setInOcean(location);
+        age = 0;
     }
 
     /**
@@ -84,5 +85,15 @@ abstract public class Fish extends AquaticLife
         if(getfoodLevel() <= 0){
             setDead();
         }
+    }
+    public void incrementAge()
+    {
+        age++;
+        if(age >= 10){
+            setDead();
+        }
+    }
+    public int getAge(){
+        return age;
     }
 }

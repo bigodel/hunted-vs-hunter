@@ -69,8 +69,9 @@ abstract public class AquaticLife
      */
     public void setLocation(Location newLocation)
     {
+        Ocean ocean = getOcean();
         if(location != null){
-            getOcean().clear(location);
+            ocean.clear(location);
         }
         this.location = newLocation;
     }
@@ -107,11 +108,11 @@ abstract public class AquaticLife
      */
     public void setfoodLevel(int foodLevel)
     {
-        if(this.foodLevel + foodLevel >= 10){
+        if(foodLevel >= 10){
             this.foodLevel = 10;
         }
         else   {
-            this.foodLevel += foodLevel;
+            this.foodLevel = foodLevel;
         }
     }
 
