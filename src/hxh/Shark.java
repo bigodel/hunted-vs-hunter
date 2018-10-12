@@ -1,26 +1,29 @@
-package src;
+package hxh;
+
 import java.util.List;
 import java.util.Random;
+
 /**
  * A simple model of a shark.
  * Sharks age, move, breed, and die.
- * Sharks eat groper or herring but they prefer groper.
- * Sharks are loners - they prefer not to swim next to each other
+ * Sharks eat sardine or tuna but they prefer tuna.
+ *
  * @author Richard Jones and Michael Kolling
  */
 public class Shark extends Fish  implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.35;
-    private final int MAX_BREED_PER_ROUND = 4;
     private static int BREEDING_AGE = 5; 
+    private final int MAX_BREED_PER_ROUND = 2;
+
     public Shark(Ocean ocean, Location location){
         super(ocean,location);
     }
-    
+
     public void eat(Location location)
     {
         Fish fish = getOcean().getFishAt(location);
-        
+
         this.setfoodLevel(fish.getfoodLevel());
         //setLocation(location);
         fish.setDead();
@@ -51,7 +54,6 @@ public class Shark extends Fish  implements Actor
      *
      * @param newShark A list to add newly born rabbits to.
      */
-    @Override
     protected void giveBirth(List<Actor> newShark)
     {
         // New sardines are born into adjacent locations.
@@ -66,7 +68,6 @@ public class Shark extends Fish  implements Actor
         }
     }
 
-    @Override
     public void act(List<Actor> shark)
     {
         incrementHunger();
@@ -76,7 +77,7 @@ public class Shark extends Fish  implements Actor
             giveBirth(shark);
             Location loc = getLocation();
             Location newLocation = findFood(loc,Tuna.class);
-            
+
             if (newLocation != null){
                 eat(newLocation);
             }
@@ -86,7 +87,7 @@ public class Shark extends Fish  implements Actor
                     eat(newLocation);
                 }
             }
-            
+
             if(newLocation == null){
 
                 newLocation = getOcean().freeAdjacentLocation(loc);
