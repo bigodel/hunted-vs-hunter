@@ -1,4 +1,4 @@
-package src;
+package hxh;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import java.util.Random;
 /**
  * (Fill in description and author info here)
  */
-
 public class Simulator
 {
     // Constants for default values for the simulation
@@ -134,7 +133,8 @@ public class Simulator
     public void run(int steps)
     {
         simView.showStatus(0, ocean);
-        for (int i = 1; i <= steps && simView.isViable(ocean); ++i) {
+
+        for (int i = 0; i < steps; ++i) {
             simulateOneStep();
         }
 

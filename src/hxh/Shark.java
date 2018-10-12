@@ -1,22 +1,21 @@
-package src;
+package hxh;
 
 import java.util.List;
 import java.util.Random;
 
 /**
- * A simple model of a tuna.
- * Tuna age, move, breed, and die.
- * They eat herring.
+ * A simple model of a shark.
+ * Sharks age, move, breed, and die.
+ * Sharks eat sardine or tuna but they prefer tuna.
  *
  * @author Richard Jones and Michael Kolling
  */
-public class Tuna extends Fish implements Actor
+public class Shark extends Fish  implements Actor
 {
     private final double BREEDING_PROBABILITY = 0.35;
-    private final int MAX_BREED_PER_ROUND = 4;
+    private final int MAX_BREED_PER_ROUND = 2;
 
-    public Tuna(Ocean ocean, Location location)
-    {
+    public Shark(Ocean ocean, Location location){
         super(ocean,location);
     }
 
@@ -24,10 +23,8 @@ public class Tuna extends Fish implements Actor
     {
         Fish fish = getOcean().getFishAt(location);
 
-        if (fish instanceof Sardine) {
-            this.setfoodLevel(fish.getfoodLevel());
-            setLocation(location);
-        }
+        this.setfoodLevel(fish.getfoodLevel());
+        setLocation(location);
     }
 
     /**
@@ -52,9 +49,9 @@ public class Tuna extends Fish implements Actor
      * Check whether or not this tuna is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param newTuna A list to add newly born rabbits to.
+     * @param newShark A list to add newly born rabbits to.
      */
-    protected void giveBirth(List<Actor> newTuna)
+    protected void giveBirth(List<Actor> newShark)
     {
         // New sardines are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -64,27 +61,37 @@ public class Tuna extends Fish implements Actor
 
         for (int b = 0; b < births && free.size() > 0; b++) {
             Location location = free.remove(0);
-            newTuna.add(new Tuna(ocean, location));
+            newShark.add(new Shark(ocean, location));
         }
     }
 
-    public void act(List<Actor> tunas)
+    public void act(List<Actor> shark)
     {
         incrementHunger();
+
         if (isAlive()) {
-            giveBirth(tunas);
+            giveBirth(shark);
             Location loc = getLocation();
-            Location newLocation = findFood(loc, Sardine.class);
+            Location newLocation = findFood(loc,Tuna.class);
 
-            if (newLocation != null)
+            if (newLocation != null){
                 eat(newLocation);
-            else
-                newLocation = getOcean().freeAdjacentLocation(loc);
+            }
+            else {
+                newLocation = findFood(loc,Sardine.class);
+                if(newLocation != null){
+                    eat(newLocation);
+                }
+            }
 
-            if (newLocation != null)
-                setLocation(newLocation);
-            else
-                setDead();
+            if(newLocation == null){
+
+                newLocation = getOcean().freeAdjacentLocation(loc);
+                if (newLocation != null)
+                    setLocation(newLocation);
+                else
+                    setDead();
+            }
         }
     }
 }

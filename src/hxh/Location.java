@@ -1,4 +1,4 @@
-package src;
+package hxh;
 
 /**
  * Represent a location in a rectangular grid.
