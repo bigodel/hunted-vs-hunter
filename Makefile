@@ -5,7 +5,7 @@
 # Common Properties
 SRCDIR = ./src
 OBJDIR = classes
-JAVA_HOME = /usr/local/jdk
+JAVA_HOME = /usr
 JAVAC = $(JAVA_HOME)/bin/javac
 JAR = $(JAVA_HOME)/bin/jar
 JVM_OPTION = -g
