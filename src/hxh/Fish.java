@@ -100,7 +100,6 @@ abstract public class Fish extends AquaticLife
     {
         age++;
 
-        // magic value for now change it later
         // the fish dies if it gets too old
         if (age >= maxAge){
             setDead();

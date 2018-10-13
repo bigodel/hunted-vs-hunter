@@ -21,7 +21,7 @@ public class Seaweed extends AquaticLife implements Actor
      * @param location Where in the ocean to place the seaweed
      * @return A new seaweed
      */
-        public Seaweed(Ocean ocean, Location location)
+    public Seaweed(Ocean ocean, Location location)
     {
         super(ocean,location);
         setInOcean(location);
@@ -36,9 +36,8 @@ public class Seaweed extends AquaticLife implements Actor
         feed();
 
         if (isAlive()) {
-            if (getfoodLevel() == 10){
+            if (getfoodLevel() == 10)
                 giveBirth(actors);
-            }
         }
     }
 

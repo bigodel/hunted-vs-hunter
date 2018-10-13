@@ -55,7 +55,7 @@ public class Shark extends Fish  implements Actor
         int births = 0;
         Random rand = getRand();
 
-        if (/*canBreed() && */rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if (rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_BREED_PER_ROUND) + 1;
         }
 
@@ -102,21 +102,28 @@ public class Shark extends Fish  implements Actor
             }
             else {
                 newLocation = findFood(loc, Sardine.class);
-                if (newLocation != null){
-                    eat(newLocation);
-                }
-            }
-
-            if(newLocation == null){
-                newLocation = getOcean().freeAdjacentLocation(loc);
 
                 if (newLocation != null) {
-                    setInOcean(newLocation);
+                    eat(newLocation);
                 }
                 else {
-                    setDead();
+                    newLocation = getOcean().freeAdjacentLocation(loc);
+
+                    if (newLocation != null)
+                        setInOcean(newLocation);
+                    else
+                        setDead();
                 }
             }
+
+            // if (newLocation == null) {
+            //     newLocation = getOcean().freeAdjacentLocation(loc);
+
+            //     if (newLocation != null)
+            //         setInOcean(newLocation);
+            //     else
+            //         setDead();
+            // }
         }
     }
 

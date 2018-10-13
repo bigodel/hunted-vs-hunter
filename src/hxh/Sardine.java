@@ -59,9 +59,8 @@ public class Sardine extends Fish implements Actor
                     setInOcean(newLocation);
             }
 
-            if (newLocation == null){
+            if (newLocation == null)
                 setDead();
-            }
         }
     }
 

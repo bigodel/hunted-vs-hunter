@@ -20,13 +20,13 @@ public class Simulator
     // default width
     private static final Integer DEFAULT_WIDTH = 50;
     // probability for creating a sardine
-    private static final double SARDINE_PROBABILITY = 0.1;
+    private static final double SARDINE_PROBABILITY = 0.9;
     // probability for creating a tuna
     private static final double TUNA_PROBABILITY = 0.05;
     // probability for creating a shark
-    private static final double SHARK_PROBABILITY = 0.02;
+    private static final double SHARK_PROBABILITY = 0.01;
     // probability for creating a seaweed
-    private static final double SEAWEED_PROBABILITY = 0.1;
+    private static final double SEAWEED_PROBABILITY = 0.9;
 
     // List of actors that will act
     private ArrayList<Actor> actors;
@@ -104,7 +104,7 @@ public class Simulator
         int sardine = 0;
         int tuna = 0;
 
-        for (Actor actor : actors){
+        for (Actor actor : actors) {
             if (actor instanceof Seaweed) sea++;
             if (actor instanceof Shark) shark++;
             if (actor instanceof Sardine) sardine++;
@@ -170,7 +170,7 @@ public class Simulator
     {
         simView.showStatus(0, ocean);
 
-        for (int i = 0; i < steps; ++i) {
+        for (int i = 0; i < steps && simView.isViable(ocean); ++i) {
             simulateOneStep();
             Thread.sleep(200);
         }

@@ -220,12 +220,10 @@ public class Ocean
         // The available free ones.
         List<Location> free = getFreeAdjacentLocations(location);
 
-        if (free.size() > 0) {
+        if (free.size() > 0)
             return free.get(0);
-        }
-        else {
+        else
             return null;
-        }
     }
 
     /**
