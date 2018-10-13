@@ -95,13 +95,13 @@ public class Shark extends Fish  implements Actor
         if (isAlive()) {
             giveBirth(shark);
             Location loc = getLocation();
-            Location newLocation = findFood(loc,Tuna.class);
+            Location newLocation = findFood(loc, Tuna.class);
 
             if (newLocation != null){
                 eat(newLocation);
             }
             else {
-                newLocation = findFood(loc,Sardine.class);
+                newLocation = findFood(loc, Sardine.class);
                 if (newLocation != null){
                     eat(newLocation);
                 }

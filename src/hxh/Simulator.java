@@ -111,8 +111,6 @@ public class Simulator
             if (actor instanceof Tuna) tuna++;
         }
 
-        System.out.println(sea + " " + shark +" " + sardine + " " + tuna);
-
         // Let them all act
         for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
@@ -163,18 +161,19 @@ public class Simulator
     }
 
     /**
-     * Run a certain amout of steps of the simulation.
+     * Run a certain amout of steps of the simulation. I added a little delay to
+     * make it easier to see what's happening in each step.
      *
      * @param steps Amount of steps the simulation will make
      */
-    public void run(int steps)
+    public void run(int steps) throws InterruptedException
     {
         simView.showStatus(0, ocean);
 
         for (int i = 0; i < steps; ++i) {
             simulateOneStep();
+            Thread.sleep(200);
         }
-
     }
 
     /**
@@ -183,6 +182,13 @@ public class Simulator
     public static void main(String[] args)
     {
         Simulator sim = new Simulator(100, 100);
-        sim.run(100);
+        try {
+            sim.run(100);
+        }
+        catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+        System.exit(0);
     }
 }
